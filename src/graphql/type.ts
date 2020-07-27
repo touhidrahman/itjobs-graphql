@@ -4,6 +4,8 @@ import {
     GraphQLNonNull,
     GraphQLObjectType,
     GraphQLString,
+    GraphQLScalarType,
+    GraphQLList,
 } from 'graphql'
 
 import User from '@local/models/user.model'
@@ -25,4 +27,15 @@ export const TokenType = new GraphQLObjectType({
         token: { type: GraphQLString },
         user: { type: UserType },
     }),
+})
+
+export const CompanyType = new GraphQLObjectType({
+    name: 'Company',
+    fields: () => ({
+        id: { type: new GraphQLNonNull(GraphQLID) },
+        displayName: { type: new GraphQLNonNull(GraphQLString) },
+        legalName: { type: new GraphQLNonNull(GraphQLString) },
+        description: { type: GraphQLString },
+        industry: { type: new GraphQLList(GraphQLString) },
+    })
 })

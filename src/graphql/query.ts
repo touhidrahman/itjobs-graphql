@@ -1,7 +1,8 @@
 import * as graphql from 'graphql'
 
 import User from '@local/models/user.model'
-import { UserType } from './type'
+import Company from '@local/models/company.model'
+import { UserType, CompanyType } from './type'
 import { validateToken } from '@local/middlewares/validate-token'
 
 const { GraphQLObjectType, GraphQLID, GraphQLList } = graphql
@@ -27,5 +28,13 @@ export const RootQuery = new GraphQLObjectType({
                 return User.find()
             },
         },
+
+        companies: {
+            type: new GraphQLList(CompanyType),
+            resolve(parent: any, args: any, { headers }: any) {
+                console.log('TCL: headers :', headers) // ! remove
+                return Company.find()
+            }
+        }
     },
 })

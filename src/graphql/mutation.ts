@@ -3,9 +3,12 @@ import {
     GraphQLString,
     GraphQLInt,
     GraphQLNonNull,
+    GraphQLID,
+    GraphQLList,
 } from 'graphql'
-import { UserType, TokenType } from './type'
+import { UserType, TokenType, CompanyType } from './type'
 import { signup, login } from './resolver/user.resolver'
+import { createCompany } from './resolver/company.resolver'
 
 export const Mutation = new GraphQLObjectType({
     name: 'Mutation',
@@ -29,5 +32,17 @@ export const Mutation = new GraphQLObjectType({
             },
             resolve: login,
         },
+
+        createCompany: {
+            type: CompanyType,
+            args: {
+                id: { type: new GraphQLNonNull(GraphQLID) },
+                displayName: { type: new GraphQLNonNull(GraphQLString) },
+                legalName: { type: new GraphQLNonNull(GraphQLString) },
+                description: { type: GraphQLString },
+                industry: { type: new GraphQLList(GraphQLString) },
+            },
+            resolve: createCompany
+        }
     },
 })

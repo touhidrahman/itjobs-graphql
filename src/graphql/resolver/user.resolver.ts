@@ -7,7 +7,7 @@ import * as jsonwebtoken from 'jsonwebtoken'
 type UserForToken = { id: string; name: string; email: string }
 type LoginResponse = {
     token: string
-    user: UserForToken | null
+    user: IUser | null
 }
 
 export async function signup(parent: any, args: any): Promise<IUser | Error> {
@@ -53,7 +53,7 @@ export async function login(
             { expiresIn: '1d' },
         )
 
-        return { token, user: userForToken }
+        return { token, user }
     } catch (error) {
         return new GraphQLError(error)
     }

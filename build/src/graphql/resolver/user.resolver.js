@@ -36,7 +36,7 @@ async function login(parent, args) {
             email: user.email,
         };
         const token = jsonwebtoken.sign({ id: user.id, user: userForToken }, config_1.default.jwtSecret, { expiresIn: '1d' });
-        return { token, user: userForToken };
+        return { token, user };
     }
     catch (error) {
         return new graphql_1.GraphQLError(error);
