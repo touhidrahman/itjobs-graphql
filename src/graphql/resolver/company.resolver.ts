@@ -1,10 +1,14 @@
-import Company, { ICompany } from "@local/models/company.model"
-import { createCompanyRules } from "@local/rules/company.rules"
-import { GraphQLError } from "graphql"
+import Company, { ICompany } from '@local/models/company.model'
+import { createCompanyRules } from '@local/rules/company.rules'
+import { GraphQLError } from 'graphql'
 
-export async function createCompany(parent: any, args: any): Promise<ICompany | Error> {
+export async function createCompany(
+    parent: any,
+    args: any,
+): Promise<ICompany | Error> {
     try {
-        await createCompanyRules.validate(args)
+        console.log('TCL: args', args)
+        // await createCompanyRules.validate(args)
 
         const company = new Company({ ...args })
 

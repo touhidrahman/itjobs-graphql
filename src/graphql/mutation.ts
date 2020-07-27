@@ -1,14 +1,19 @@
 import {
+    GraphQLList,
+    GraphQLNonNull,
     GraphQLObjectType,
     GraphQLString,
-    GraphQLInt,
-    GraphQLNonNull,
-    GraphQLID,
-    GraphQLList,
 } from 'graphql'
-import { UserType, TokenType, CompanyType } from './type'
-import { signup, login } from './resolver/user.resolver'
 import { createCompany } from './resolver/company.resolver'
+import { login, signup } from './resolver/user.resolver'
+import {
+    AddressType,
+    CompanyType,
+    ContactType,
+    KeyPersons,
+    TokenType,
+    UserType,
+} from './type'
 
 export const Mutation = new GraphQLObjectType({
     name: 'Mutation',
@@ -40,6 +45,11 @@ export const Mutation = new GraphQLObjectType({
                 legalName: { type: new GraphQLNonNull(GraphQLString) },
                 description: { type: GraphQLString },
                 industry: { type: new GraphQLList(GraphQLString) },
+                address: { type: new GraphQLNonNull(AddressType) },
+                contact: { type: new GraphQLNonNull(ContactType) },
+                registrationDetails: { type: GraphQLString },
+                keyPersons: { type: new GraphQLNonNull(KeyPersons) },
+                hiringManager: { type: GraphQLString },
             },
             resolve: createCompany,
         },

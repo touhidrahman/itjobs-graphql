@@ -22,9 +22,9 @@ export const RootQuery = new GraphQLObjectType({
         users: {
             type: new GraphQLList(UserType),
             resolve(parent: any, args: any, { headers }: any) {
+                console.log('TCL: headers :', headers) // ! remove
                 const { authorization } = headers
                 validateToken(authorization)
-                console.log('TCL: headers :', headers) // ! remove
 
                 return User.find()
             },

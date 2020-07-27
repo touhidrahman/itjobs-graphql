@@ -1,14 +1,12 @@
+import User from '@local/models/user.model'
 import {
     GraphQLID,
-    GraphQLInt,
+    GraphQLList,
     GraphQLNonNull,
     GraphQLObjectType,
     GraphQLString,
-    GraphQLScalarType,
-    GraphQLList,
+    GraphQLInputObjectType,
 } from 'graphql'
-
-import User from '@local/models/user.model'
 
 export const UserType = new GraphQLObjectType({
     name: 'User',
@@ -32,16 +30,59 @@ export const TokenType = new GraphQLObjectType({
 export const CompanyType = new GraphQLObjectType({
     name: 'Company',
     fields: () => ({
-        id: { type: new GraphQLNonNull(GraphQLID) },
         displayName: { type: new GraphQLNonNull(GraphQLString) },
         legalName: { type: new GraphQLNonNull(GraphQLString) },
         description: { type: GraphQLString },
         industry: { type: new GraphQLList(GraphQLString) },
-        users: {
-            type: new GraphQLList(UserType),
-            resolve: async (parent) => {
-                return await User.find()
-            },
-        },
+        address: { type: new GraphQLNonNull(AddressType) },
+        contact: { type: new GraphQLNonNull(ContactType) },
+        registrationDetails: { type: GraphQLString },
+        keyPersons: { type: new GraphQLNonNull(KeyPersons) },
+        hiringManager: { type: GraphQLString },
+    }),
+})
+
+export const AddressType = new GraphQLInputObjectType({
+    name: 'Address',
+    fields: () => ({
+        line1: { type: new GraphQLNonNull(GraphQLString) },
+        line2: { type: GraphQLString },
+        city: { type: new GraphQLNonNull(GraphQLString) },
+        postalCode: { type: new GraphQLNonNull(GraphQLString) },
+        country: { type: new GraphQLNonNull(GraphQLString) },
+    }),
+})
+
+export const AddressOutputType = new GraphQLObjectType({
+    name: 'Address',
+    fields: () => ({
+        line1: { type: new GraphQLNonNull(GraphQLString) },
+        line2: { type: GraphQLString },
+        city: { type: new GraphQLNonNull(GraphQLString) },
+        postalCode: { type: new GraphQLNonNull(GraphQLString) },
+        country: { type: new GraphQLNonNull(GraphQLString) },
+    }),
+})
+
+export const ContactType = new GraphQLInputObjectType({
+    name: 'Contact',
+    fields: () => ({
+        phone: { type: GraphQLString },
+        fax: { type: GraphQLString },
+        email: { type: GraphQLString },
+        website: { type: GraphQLString },
+        facebook: { type: GraphQLString },
+        linkedin: { type: GraphQLString },
+    }),
+})
+
+export const KeyPersons = new GraphQLInputObjectType({
+    name: 'KeyPersons',
+    fields: () => ({
+        chairman: { type: GraphQLString },
+        managingDirector: { type: GraphQLString },
+        ceo: { type: GraphQLString },
+        cto: { type: GraphQLString },
+        cfo: { type: GraphQLString },
     }),
 })
