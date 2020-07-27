@@ -37,5 +37,11 @@ export const CompanyType = new GraphQLObjectType({
         legalName: { type: new GraphQLNonNull(GraphQLString) },
         description: { type: GraphQLString },
         industry: { type: new GraphQLList(GraphQLString) },
-    })
+        users: {
+            type: new GraphQLList(UserType),
+            resolve: async (parent) => {
+                return await User.find()
+            },
+        },
+    }),
 })

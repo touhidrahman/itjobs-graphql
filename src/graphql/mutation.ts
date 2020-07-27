@@ -36,13 +36,12 @@ export const Mutation = new GraphQLObjectType({
         createCompany: {
             type: CompanyType,
             args: {
-                id: { type: new GraphQLNonNull(GraphQLID) },
                 displayName: { type: new GraphQLNonNull(GraphQLString) },
                 legalName: { type: new GraphQLNonNull(GraphQLString) },
                 description: { type: GraphQLString },
                 industry: { type: new GraphQLList(GraphQLString) },
             },
-            resolve: createCompany
-        }
+            resolve: createCompany,
+        },
     },
 })

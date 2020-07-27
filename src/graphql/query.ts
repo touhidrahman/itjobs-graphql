@@ -24,6 +24,7 @@ export const RootQuery = new GraphQLObjectType({
             resolve(parent: any, args: any, { headers }: any) {
                 const { authorization } = headers
                 validateToken(authorization)
+                console.log('TCL: headers :', headers) // ! remove
 
                 return User.find()
             },
@@ -32,9 +33,8 @@ export const RootQuery = new GraphQLObjectType({
         companies: {
             type: new GraphQLList(CompanyType),
             resolve(parent: any, args: any, { headers }: any) {
-                console.log('TCL: headers :', headers) // ! remove
                 return Company.find()
-            }
-        }
+            },
+        },
     },
 })
