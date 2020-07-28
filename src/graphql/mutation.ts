@@ -1,24 +1,26 @@
 import {
     createCompany,
+    createTeam,
+    deleteCompany,
     login,
     signup,
-    deleteCompany,
 } from '@local/graphql/resolver'
 import {
     AddressInputType,
     CompanyType,
     ContactInputType,
     KeyPersonsInputType,
+    TeamType,
     TokenType,
     UserType,
 } from '@local/graphql/types'
 import {
+    GraphQLBoolean,
+    GraphQLID,
     GraphQLList,
     GraphQLNonNull,
     GraphQLObjectType,
     GraphQLString,
-    GraphQLBoolean,
-    GraphQLID,
 } from 'graphql'
 
 export const Mutation = new GraphQLObjectType({
@@ -54,17 +56,35 @@ export const Mutation = new GraphQLObjectType({
                 address: { type: new GraphQLNonNull(AddressInputType) },
                 contact: { type: new GraphQLNonNull(ContactInputType) },
                 registrationDetails: { type: GraphQLString },
-                keyPersons: { type: new GraphQLNonNull(KeyPersonsInputType) },
+                keyPersons: {
+                    type: new GraphQLNonNull(KeyPersonsInputType),
+                },
                 hiringManager: { type: new GraphQLList(GraphQLString) },
             },
             resolve: createCompany,
         },
+
         deleteCompany: {
             type: GraphQLBoolean,
             args: {
                 id: { type: new GraphQLNonNull(GraphQLID) },
             },
             resolve: deleteCompany,
+        },
+
+        /**
+         * TEAM
+         */
+        createTeam: {
+            type: TeamType,
+            args: {
+                type: { type: new GraphQLNonNull(GraphQLString) }, // TODO make enum
+                name: { type: GraphQLString },
+                description: { type: GraphQLString },
+                url: { type: GraphQLString },
+                technology: { type: new GraphQLList(GraphQLString) },
+            },
+            resolve: createTeam,
         },
     },
 })

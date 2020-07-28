@@ -1,12 +1,8 @@
-import * as graphql from 'graphql'
-
-import User from '@local/models/user.model'
-import Company from '@local/models/company.model'
-import { CompanyType, UserType } from '@local/graphql/types'
-import { validateToken } from '@local/middlewares/validate-token'
 import { getCompanies } from '@local/graphql/resolver'
-
-const { GraphQLObjectType, GraphQLID, GraphQLList } = graphql
+import { CompanyType, TeamType, UserType } from '@local/graphql/types'
+import { validateToken } from '@local/middlewares/validate-token'
+import User from '@local/models/user.model'
+import { GraphQLList, GraphQLObjectType } from 'graphql'
 
 export const RootQuery = new GraphQLObjectType({
     name: 'RootQueryType',
@@ -34,6 +30,16 @@ export const RootQuery = new GraphQLObjectType({
         companies: {
             type: new GraphQLList(CompanyType),
             resolve: getCompanies,
+        },
+
+        /**
+         * TEAM
+         */
+        teams: {
+            type: new GraphQLList(TeamType),
+            resolve(parent: any, args: any, { headers }: any) {
+                return null
+            },
         },
     },
 })
