@@ -2,7 +2,7 @@ import * as graphql from 'graphql'
 
 import User from '@local/models/user.model'
 import Company from '@local/models/company.model'
-import { UserType, CompanyType } from './type'
+import { CompanyType, UserType } from '@local/graphql/types'
 import { validateToken } from '@local/middlewares/validate-token'
 
 const { GraphQLObjectType, GraphQLID, GraphQLList } = graphql

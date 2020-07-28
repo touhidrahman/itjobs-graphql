@@ -1,22 +1,18 @@
+import { createCompany, login, signup } from '@local/graphql/resolver'
+import {
+    AddressInputType,
+    CompanyType,
+    ContactInputType,
+    KeyPersonsInputType,
+    TokenType,
+    UserType,
+} from '@local/graphql/types'
 import {
     GraphQLList,
     GraphQLNonNull,
     GraphQLObjectType,
     GraphQLString,
 } from 'graphql'
-import { createCompany } from './resolver/company.resolver'
-import { login, signup } from './resolver/user.resolver'
-import {
-    AddressType,
-    CompanyType,
-    ContactType,
-    KeyPersonsType,
-    TokenType,
-    UserType,
-    AddressInputType,
-    ContactInputType,
-    KeyPersonsInputType,
-} from './type'
 
 export const Mutation = new GraphQLObjectType({
     name: 'Mutation',
