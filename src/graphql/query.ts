@@ -1,4 +1,4 @@
-import { getCompanies } from '@local/graphql/resolver'
+import { getCompanies, getTeams } from '@local/graphql/resolver'
 import { CompanyType, TeamType, UserType } from '@local/graphql/types'
 import { validateToken } from '@local/middlewares/validate-token'
 import User from '@local/models/user.model'
@@ -37,9 +37,7 @@ export const RootQuery = new GraphQLObjectType({
          */
         teams: {
             type: new GraphQLList(TeamType),
-            resolve(parent: any, args: any, { headers }: any) {
-                return null
-            },
+            resolve: getTeams,
         },
     },
 })

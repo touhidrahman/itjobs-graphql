@@ -1,4 +1,5 @@
 import Team, { ITeam } from '@local/models/team.model'
+import { createTeamRules } from '@local/rules/team.rules'
 import { GraphQLError } from 'graphql'
 
 export async function createTeam(
@@ -6,10 +7,22 @@ export async function createTeam(
     args: any,
 ): Promise<ITeam | Error> {
     try {
-        // TODO validate
-        const team = new Team({ ...args })
-        const res = await team.save()
+        const teamInput = await createTeamRules.validate(args)
+        console.log('TCL: teamInput', teamInput)
+        const team = new Team({ ...teamInput })
+        await team.save()
         return (await Team.findById(team._id)) as ITeam
+    } catch (error) {
+        return new GraphQLError(error)
+    }
+}
+
+export async function getTeams(
+    parent: any,
+    args: any,
+): Promise<ITeam[] | Error> {
+    try {
+        return (await Team.find()) as ITeam[]
     } catch (error) {
         return new GraphQLError(error)
     }
