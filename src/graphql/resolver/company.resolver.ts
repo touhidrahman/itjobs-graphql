@@ -7,12 +7,16 @@ export async function createCompany(
     args: any,
 ): Promise<ICompany | Error> {
     try {
-        console.log('TCL: args', args)
-        // await createCompanyRules.validate(args)
+        const sanitizedArgs = await createCompanyRules.validate(args)
 
-        const company = new Company({ ...args })
+        const company = new Company({ ...sanitizedArgs })
 
-        return await company.save()
+        const res = await company.save()
+        const resPopulated = await Company.findById(res._id).populate(
+            'hiringManager',
+        )
+
+        return resPopulated!
     } catch (error) {
         return new GraphQLError(error)
     }

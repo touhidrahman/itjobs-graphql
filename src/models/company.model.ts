@@ -61,9 +61,7 @@ const CompanySchema = new mongoose.Schema(
             cto: String,
             cfo: String,
         },
-        hiringManager: [
-            { type: mongoose.Schema.Types.ObjectId, ref: 'UserSchema' },
-        ],
+        hiringManager: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
     },
     { timestamps: true },
 )
