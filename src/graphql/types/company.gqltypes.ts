@@ -1,11 +1,11 @@
-import { UserType } from '@local/graphql/types'
+import { TeamType, UserType } from '@local/graphql/types'
 import {
+    GraphQLID,
     GraphQLInputObjectType,
     GraphQLList,
     GraphQLNonNull,
     GraphQLObjectType,
     GraphQLString,
-    GraphQLID,
 } from 'graphql'
 
 export const CompanyType = new GraphQLObjectType({
@@ -21,6 +21,7 @@ export const CompanyType = new GraphQLObjectType({
         registrationDetails: { type: GraphQLString },
         keyPersons: { type: new GraphQLNonNull(KeyPersonsType) },
         hiringManager: { type: new GraphQLList(UserType) },
+        teams: { type: new GraphQLList(TeamType) },
     }),
 })
 

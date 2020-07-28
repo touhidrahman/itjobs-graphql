@@ -4,6 +4,7 @@ import {
     deleteCompany,
     login,
     signup,
+    addTeamToCompany,
 } from '@local/graphql/resolver'
 import {
     AddressInputType,
@@ -70,6 +71,15 @@ export const Mutation = new GraphQLObjectType({
                 id: { type: new GraphQLNonNull(GraphQLID) },
             },
             resolve: deleteCompany,
+        },
+
+        addTeamToCompany: {
+            type: CompanyType,
+            args: {
+                companyId: { type: new GraphQLNonNull(GraphQLID) },
+                teamId: { type: new GraphQLNonNull(GraphQLID) },
+            },
+            resolve: addTeamToCompany,
         },
 
         /**

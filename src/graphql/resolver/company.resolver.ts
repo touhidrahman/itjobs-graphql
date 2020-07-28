@@ -13,7 +13,7 @@ export async function createCompany(
 
         const res = await company.save()
         const resPopulated = await Company.findById(res._id).populate(
-            'hiringManager',
+            'hiringManager teams',
         )
 
         return resPopulated!
@@ -27,7 +27,7 @@ export async function getCompanies(
     args: any,
     { headers }: any,
 ): Promise<ICompany[] | Error> {
-    return await Company.find().populate('hiringManager')
+    return await Company.find().populate('hiringManager teams')
 }
 
 export async function deleteCompany(
@@ -42,6 +42,24 @@ export async function deleteCompany(
         }
 
         return !!res
+    } catch (error) {
+        return new GraphQLError(error)
+    }
+}
+
+export async function addTeamToCompany(
+    parent: any,
+    args: any,
+): Promise<ICompany | Error> {
+    try {
+        const company = await Company.findById(args.companyId)
+        if (company && !company.teams.includes(args.teamId)) {
+            company.teams.push(args.teamId)
+            await company.save()
+        }
+        return (await Company.findById(args.companyId).populate(
+            'hiringManager teams',
+        )) as ICompany
     } catch (error) {
         return new GraphQLError(error)
     }

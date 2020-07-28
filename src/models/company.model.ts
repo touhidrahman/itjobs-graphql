@@ -1,5 +1,6 @@
 import * as mongoose from 'mongoose'
 import { IUser } from '@local/models/user.model'
+import { ITeam } from '@local/models/team.model'
 
 export interface ICompany extends mongoose.Document {
     displayName: string
@@ -30,6 +31,7 @@ export interface ICompany extends mongoose.Document {
         cfo: string
     }
     hiringManager?: IUser[]
+    teams: ITeam[]
 }
 
 const CompanySchema = new mongoose.Schema(
@@ -62,6 +64,7 @@ const CompanySchema = new mongoose.Schema(
             cfo: String,
         },
         hiringManager: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
+        teams: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Team' }],
     },
     { timestamps: true },
 )
