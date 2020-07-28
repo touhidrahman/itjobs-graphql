@@ -9,7 +9,7 @@ export const createCompanyRules = yup.object().shape({
         line1: yup.string(),
         line2: yup.string(),
         city: yup.string(),
-        postalCode: yup.string(),
+        postalCode: yup.string().label('Post Code'),
         country: yup.string(),
     }),
     contact: yup.object().shape({

@@ -4,6 +4,7 @@ import User from '@local/models/user.model'
 import Company from '@local/models/company.model'
 import { CompanyType, UserType } from '@local/graphql/types'
 import { validateToken } from '@local/middlewares/validate-token'
+import { getCompanies } from '@local/graphql/resolver'
 
 const { GraphQLObjectType, GraphQLID, GraphQLList } = graphql
 
@@ -32,9 +33,7 @@ export const RootQuery = new GraphQLObjectType({
 
         companies: {
             type: new GraphQLList(CompanyType),
-            resolve(parent: any, args: any, { headers }: any) {
-                return Company.find()
-            },
+            resolve: getCompanies,
         },
     },
 })

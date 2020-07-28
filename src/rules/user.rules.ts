@@ -8,6 +8,7 @@ export const signupRules = yup.object().shape({
     lastName: yup.string().trim().required(),
     email: yup
         .string()
+        .email()
         .trim()
         .required()
         .test(

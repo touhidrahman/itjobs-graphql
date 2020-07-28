@@ -21,3 +21,28 @@ export async function createCompany(
         return new GraphQLError(error)
     }
 }
+
+export async function getCompanies(
+    parent: any,
+    args: any,
+    { headers }: any,
+): Promise<ICompany[] | Error> {
+    return await Company.find().populate('hiringManager')
+}
+
+export async function deleteCompany(
+    parent: any,
+    args: any,
+): Promise<boolean | Error> {
+    const { id } = args
+    try {
+        const res = await Company.findByIdAndDelete(id)
+        if (!res) {
+            return new GraphQLError('Company does not exist')
+        }
+
+        return !!res
+    } catch (error) {
+        return new GraphQLError(error)
+    }
+}

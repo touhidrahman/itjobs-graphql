@@ -5,11 +5,13 @@ import {
     GraphQLNonNull,
     GraphQLObjectType,
     GraphQLString,
+    GraphQLID,
 } from 'graphql'
 
 export const CompanyType = new GraphQLObjectType({
     name: 'Company',
     fields: () => ({
+        id: { type: new GraphQLNonNull(GraphQLID) },
         displayName: { type: new GraphQLNonNull(GraphQLString) },
         legalName: { type: new GraphQLNonNull(GraphQLString) },
         description: { type: GraphQLString },

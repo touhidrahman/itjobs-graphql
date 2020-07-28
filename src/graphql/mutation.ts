@@ -1,4 +1,9 @@
-import { createCompany, login, signup } from '@local/graphql/resolver'
+import {
+    createCompany,
+    login,
+    signup,
+    deleteCompany,
+} from '@local/graphql/resolver'
 import {
     AddressInputType,
     CompanyType,
@@ -12,6 +17,8 @@ import {
     GraphQLNonNull,
     GraphQLObjectType,
     GraphQLString,
+    GraphQLBoolean,
+    GraphQLID,
 } from 'graphql'
 
 export const Mutation = new GraphQLObjectType({
@@ -51,6 +58,13 @@ export const Mutation = new GraphQLObjectType({
                 hiringManager: { type: new GraphQLList(GraphQLString) },
             },
             resolve: createCompany,
+        },
+        deleteCompany: {
+            type: GraphQLBoolean,
+            args: {
+                id: { type: new GraphQLNonNull(GraphQLID) },
+            },
+            resolve: deleteCompany,
         },
     },
 })
