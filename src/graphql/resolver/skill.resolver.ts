@@ -29,3 +29,15 @@ export async function getSkills(
         .skip(_page * _size)
         .limit(_size)
 }
+
+export async function updateSkill(
+    parent: any,
+    { name, newName }: any,
+    { headers }: any,
+): Promise<ISkill | null> {
+    const skill = await Skill.findOneAndUpdate({ name }, { name: newName })
+    if (skill) {
+        return await Skill.findOne({ name: newName })
+    }
+    return null
+}

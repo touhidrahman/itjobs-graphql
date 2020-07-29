@@ -1,39 +1,47 @@
-import { getCompanies, getSkills, getTeams } from '@local/graphql/resolver'
+import {
+    getCompanies,
+    getSkills,
+    getTeams,
+    getUser,
+    getUsers,
+} from '@local/graphql/resolver'
 import {
     CompanyType,
     SkillType,
     TeamType,
     UserType,
 } from '@local/graphql/types'
-import { validateToken } from '@local/middlewares/validate-token'
-import User from '@local/models/user.model'
-import { GraphQLList, GraphQLObjectType } from 'graphql'
+import { GraphQLInt, GraphQLList, GraphQLObjectType } from 'graphql'
 
 export const RootQuery = new GraphQLObjectType({
     name: 'RootQueryType',
     fields: {
+        /**
+         * USER
+         */
         user: {
             type: UserType,
-            resolve(parent: any, args: any, { headers }: any) {
-                const { authorization } = headers
-                const user = validateToken(authorization) // TODO check
-
-                return User.findById(user.id)
-            },
+            resolve: getUser,
         },
+
         users: {
             type: new GraphQLList(UserType),
-            resolve(parent: any, args: any, { headers }: any) {
-                console.log('TCL: headers :', headers) // ! remove
-                const { authorization } = headers
-                validateToken(authorization)
-
-                return User.find()
+            args: {
+                page: { type: GraphQLInt },
+                size: { type: GraphQLInt },
             },
+            resolve: getUsers,
         },
 
+        /**
+         * COMPANY
+         */
         companies: {
             type: new GraphQLList(CompanyType),
+            args: {
+                page: { type: GraphQLInt },
+                size: { type: GraphQLInt },
+            },
             resolve: getCompanies,
         },
 
@@ -42,6 +50,10 @@ export const RootQuery = new GraphQLObjectType({
          */
         teams: {
             type: new GraphQLList(TeamType),
+            args: {
+                page: { type: GraphQLInt },
+                size: { type: GraphQLInt },
+            },
             resolve: getTeams,
         },
 
@@ -50,10 +62,11 @@ export const RootQuery = new GraphQLObjectType({
          */
         skills: {
             type: new GraphQLList(SkillType), // TODO can be string type
-            resolve(parent: any, { page, size }: any, { headers }: any) {
-                console.log('TCL: resolve -> parent', parent)
-                return getSkills(parent, { page, size }, { headers })
+            args: {
+                page: { type: GraphQLInt },
+                size: { type: GraphQLInt },
             },
+            resolve: getSkills,
         },
     },
 })

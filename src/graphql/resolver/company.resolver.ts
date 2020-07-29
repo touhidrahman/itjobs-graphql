@@ -64,3 +64,21 @@ export async function addTeamToCompany(
         return new GraphQLError(error)
     }
 }
+
+export async function removeTeamFromCompany(
+    parent: any,
+    args: any,
+): Promise<ICompany | Error> {
+    try {
+        const company = await Company.findById(args.companyId)
+        if (company && company.teams.includes(args.teamId)) {
+            company.teams = company.teams.filter((x) => x !== args.teamId)
+            await company.save()
+        }
+        return (await Company.findById(args.companyId).populate(
+            'hiringManager teams',
+        )) as ICompany
+    } catch (error) {
+        return new GraphQLError(error)
+    }
+}

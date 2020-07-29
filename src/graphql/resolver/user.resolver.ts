@@ -3,6 +3,7 @@ import { signupRules, loginRules } from '@local/rules/user.rules'
 import { GraphQLError } from 'graphql'
 import config from '@local/config'
 import * as jsonwebtoken from 'jsonwebtoken'
+import { validateToken } from '@local/middlewares/validate-token'
 
 type UserForToken = { id: string; name: string; email: string }
 type LoginResponse = {
@@ -57,4 +58,28 @@ export async function login(
     } catch (error) {
         return new GraphQLError(error)
     }
+}
+
+export async function getUsers(
+    parent: any,
+    args: any,
+    context: any,
+): Promise<IUser[]> {
+    const page = Number(args.page) - 1
+    const size = Number(args.size)
+
+    return await User.find({})
+        .skip(page * size)
+        .limit(size)
+}
+
+export async function getUser(
+    parent: any,
+    args: any,
+    { headers }: any,
+): Promise<IUser | null> {
+    const { authorization } = headers
+    const user = validateToken(authorization) // TODO check
+
+    return await User.findById(user.id)
 }

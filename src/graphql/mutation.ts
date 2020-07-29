@@ -1,21 +1,23 @@
 import {
     addTeamToCompany,
     createCompany,
+    createSkill,
     createTeam,
     deleteCompany,
     login,
+    removeTeamFromCompany,
     signup,
-    createSkill,
+    updateSkill,
 } from '@local/graphql/resolver'
 import {
     AddressInputType,
     CompanyType,
     ContactInputType,
     KeyPersonsInputType,
+    SkillType,
     TeamType,
     TokenType,
     UserType,
-    SkillType,
 } from '@local/graphql/types'
 import {
     GraphQLBoolean,
@@ -85,6 +87,15 @@ export const Mutation = new GraphQLObjectType({
             resolve: addTeamToCompany,
         },
 
+        removeTeamFromCompany: {
+            type: CompanyType,
+            args: {
+                companyId: { type: new GraphQLNonNull(GraphQLID) },
+                teamId: { type: new GraphQLNonNull(GraphQLID) },
+            },
+            resolve: removeTeamFromCompany,
+        },
+
         /**
          * TEAM
          */
@@ -111,6 +122,15 @@ export const Mutation = new GraphQLObjectType({
                 votes: { type: GraphQLInt },
             },
             resolve: createSkill,
+        },
+
+        updateSkill: {
+            type: SkillType,
+            args: {
+                name: { type: new GraphQLNonNull(GraphQLString) },
+                newName: { type: new GraphQLNonNull(GraphQLString) },
+            },
+            resolve: updateSkill,
         },
     },
 })
