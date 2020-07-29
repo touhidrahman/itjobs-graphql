@@ -1,5 +1,10 @@
-import { getCompanies, getTeams } from '@local/graphql/resolver'
-import { CompanyType, TeamType, UserType } from '@local/graphql/types'
+import { getCompanies, getSkills, getTeams } from '@local/graphql/resolver'
+import {
+    CompanyType,
+    SkillType,
+    TeamType,
+    UserType,
+} from '@local/graphql/types'
 import { validateToken } from '@local/middlewares/validate-token'
 import User from '@local/models/user.model'
 import { GraphQLList, GraphQLObjectType } from 'graphql'
@@ -38,6 +43,17 @@ export const RootQuery = new GraphQLObjectType({
         teams: {
             type: new GraphQLList(TeamType),
             resolve: getTeams,
+        },
+
+        /**
+         * SKILL
+         */
+        skills: {
+            type: new GraphQLList(SkillType), // TODO can be string type
+            resolve(parent: any, { page, size }: any, { headers }: any) {
+                console.log('TCL: resolve -> parent', parent)
+                return getSkills(parent, { page, size }, { headers })
+            },
         },
     },
 })

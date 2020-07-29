@@ -1,10 +1,11 @@
 import {
+    addTeamToCompany,
     createCompany,
     createTeam,
     deleteCompany,
     login,
     signup,
-    addTeamToCompany,
+    createSkill,
 } from '@local/graphql/resolver'
 import {
     AddressInputType,
@@ -14,10 +15,12 @@ import {
     TeamType,
     TokenType,
     UserType,
+    SkillType,
 } from '@local/graphql/types'
 import {
     GraphQLBoolean,
     GraphQLID,
+    GraphQLInt,
     GraphQLList,
     GraphQLNonNull,
     GraphQLObjectType,
@@ -95,6 +98,19 @@ export const Mutation = new GraphQLObjectType({
                 technology: { type: new GraphQLList(GraphQLString) },
             },
             resolve: createTeam,
+        },
+
+        /**
+         * SKILL
+         */
+        createSkill: {
+            type: SkillType,
+            args: {
+                name: { type: new GraphQLNonNull(GraphQLString) },
+                logo: { type: GraphQLString },
+                votes: { type: GraphQLInt },
+            },
+            resolve: createSkill,
         },
     },
 })
