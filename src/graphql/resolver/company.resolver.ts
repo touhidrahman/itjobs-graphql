@@ -1,6 +1,7 @@
 import { Company, ICompany } from '@local/models/company.model'
 import { createCompanyRules } from '@local/rules/company.rules'
 import { GraphQLError } from 'graphql'
+import { validateToken } from '@local/middlewares/validate-token'
 
 export async function createCompany(
     parent: any,
@@ -27,6 +28,9 @@ export async function getCompanies(
     args: any,
     { headers }: any,
 ): Promise<ICompany[] | Error> {
+    const { authorization } = headers
+    const user = validateToken(authorization)
+
     return await Company.find().populate('hiringManager teams')
 }
 

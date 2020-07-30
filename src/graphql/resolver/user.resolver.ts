@@ -79,7 +79,7 @@ export async function getUser(
     { headers }: any,
 ): Promise<IUser | null> {
     const { authorization } = headers
-    const user = validateToken(authorization) // TODO check
+    const user = validateToken(authorization)
 
     return await User.findById(user.id)
 }

@@ -4,10 +4,10 @@ import { GraphQLError } from 'graphql'
 
 export async function createSkill(
     parent: any,
-    args: any,
+    { input }: any,
 ): Promise<ISkill | Error> {
     try {
-        const skillInput = await createSkillRules.validate(args)
+        const skillInput = await createSkillRules.validate(input)
 
         const skill = new Skill({ ...skillInput })
         await skill.save()

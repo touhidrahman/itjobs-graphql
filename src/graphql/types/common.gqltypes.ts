@@ -1,5 +1,6 @@
 import {
     GraphQLInputObjectType,
+    GraphQLInt,
     GraphQLNonNull,
     GraphQLObjectType,
     GraphQLString,
@@ -48,5 +49,21 @@ export const ContactInputType = new GraphQLInputObjectType({
         website: { type: GraphQLString },
         facebook: { type: GraphQLString },
         linkedin: { type: GraphQLString },
+    }),
+})
+
+export const MinMaxType = new GraphQLObjectType({
+    name: 'MinMax',
+    fields: () => ({
+        min: { type: GraphQLInt },
+        max: { type: GraphQLInt },
+    }),
+})
+
+export const MinMaxInputType = new GraphQLInputObjectType({
+    name: 'MinMaxInput',
+    fields: () => ({
+        min: { type: GraphQLInt },
+        max: { type: GraphQLInt },
     }),
 })

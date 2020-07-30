@@ -58,6 +58,11 @@ export const RootQuery = new GraphQLObjectType({
         },
 
         /**
+         * JOB
+         */
+        // jobs: {},
+
+        /**
          * SKILL
          */
         skills: {

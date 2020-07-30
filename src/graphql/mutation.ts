@@ -1,5 +1,6 @@
 import {
     addTeamToCompany,
+    createCandidate,
     createCompany,
     createSkill,
     createTeam,
@@ -8,19 +9,21 @@ import {
     removeTeamFromCompany,
     signup,
     updateSkill,
-    createCandidate,
 } from '@local/graphql/resolver'
 import {
     AddressInputType,
+    CandidateType,
     CompanyType,
     ContactInputType,
+    JobType,
     KeyPersonsInputType,
+    MinMaxInputType,
+    SkillInputType,
     SkillType,
     TeamType,
+    TeamTypeEnumType,
     TokenType,
     UserType,
-    TeamTypeEnumType,
-    CandidateType,
 } from '@local/graphql/types'
 import {
     GraphQLBoolean,
@@ -118,6 +121,35 @@ export const Mutation = new GraphQLObjectType({
         },
 
         /**
+         * JOB
+         */
+        createJobPost: {
+            type: JobType,
+            args: {
+                id: { type: new GraphQLNonNull(GraphQLID) },
+                role: { type: GraphQLString },
+                title: { type: GraphQLString },
+                level: { type: GraphQLString },
+                locationCity: { type: GraphQLString },
+                effort: { type: GraphQLString },
+                remote: { type: GraphQLString },
+                salary: { type: MinMaxInputType },
+                company: { type: new GraphQLNonNull(GraphQLID) },
+                teamOrProduct: { type: new GraphQLNonNull(GraphQLID) },
+                experience: { type: MinMaxInputType },
+                educationLevel: { type: GraphQLInt },
+                // skills
+                englishSkillLevel: { type: GraphQLInt },
+                relocationSupported: { type: GraphQLBoolean },
+                benefits: { type: new GraphQLList(GraphQLString) },
+                description: { type: GraphQLString },
+                leaveDays: { type: GraphQLInt },
+                employerReference: { type: GraphQLString },
+                gender: { type: GraphQLString },
+            },
+        },
+
+        /**
          * CANDIDATE
          */
         createCandidate: {
@@ -136,9 +168,7 @@ export const Mutation = new GraphQLObjectType({
         createSkill: {
             type: SkillType,
             args: {
-                name: { type: new GraphQLNonNull(GraphQLString) },
-                logo: { type: GraphQLString },
-                votes: { type: GraphQLInt },
+                input: { type: new GraphQLNonNull(SkillInputType) },
             },
             resolve: createSkill,
         },
