@@ -1,4 +1,6 @@
 import * as mongoose from 'mongoose'
+import { ICompany } from './company.model'
+import { ITeam } from './team.model'
 
 export interface IJob extends mongoose.Document {
     role: string // TODO enum
@@ -11,8 +13,8 @@ export interface IJob extends mongoose.Document {
         min: number
         max: number
     }
-    company: string
-    teamOrProduct?: string
+    company: ICompany
+    teamOrProduct?: ITeam
     experience: {
         min: number
         max: number
