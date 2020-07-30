@@ -16,3 +16,7 @@ export async function createJobPost(
         throw new GraphQLError(error)
     }
 }
+
+export async function getJobs(parent: any, args: any): Promise<IJob[] | Error> {
+    return (await Job.find().populate('company teamOrProduct')) as IJob[]
+}

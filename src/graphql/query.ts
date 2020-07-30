@@ -1,5 +1,6 @@
 import {
     getCompanies,
+    getJobs,
     getSkills,
     getTeams,
     getUser,
@@ -7,6 +8,7 @@ import {
 } from '@local/graphql/resolver'
 import {
     CompanyType,
+    JobType,
     SkillType,
     TeamType,
     UserType,
@@ -60,7 +62,10 @@ export const RootQuery = new GraphQLObjectType({
         /**
          * JOB
          */
-        // jobs: {},
+        jobs: {
+            type: new GraphQLList(JobType),
+            resolve: getJobs,
+        },
 
         /**
          * SKILL

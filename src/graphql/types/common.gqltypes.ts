@@ -4,6 +4,7 @@ import {
     GraphQLNonNull,
     GraphQLObjectType,
     GraphQLString,
+    GraphQLEnumType,
 } from 'graphql'
 
 export const AddressInputType = new GraphQLInputObjectType({
@@ -66,4 +67,13 @@ export const MinMaxInputType = new GraphQLInputObjectType({
         min: { type: GraphQLInt },
         max: { type: GraphQLInt },
     }),
+})
+
+export const GenderEnumType = new GraphQLEnumType({
+    name: 'GenderEnum',
+    values: {
+        Male: { value: 'Male' },
+        Female: { value: 'Female' },
+        Any: { value: 'Any' },
+    },
 })
