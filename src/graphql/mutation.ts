@@ -8,6 +8,7 @@ import {
     removeTeamFromCompany,
     signup,
     updateSkill,
+    createCandidate,
 } from '@local/graphql/resolver'
 import {
     AddressInputType,
@@ -19,6 +20,7 @@ import {
     TokenType,
     UserType,
     TeamTypeEnumType,
+    CandidateType,
 } from '@local/graphql/types'
 import {
     GraphQLBoolean,
@@ -53,6 +55,9 @@ export const Mutation = new GraphQLObjectType({
             resolve: login,
         },
 
+        /**
+         * COMPANY
+         */
         createCompany: {
             type: CompanyType,
             args: {
@@ -110,6 +115,19 @@ export const Mutation = new GraphQLObjectType({
                 technology: { type: new GraphQLList(GraphQLString) },
             },
             resolve: createTeam,
+        },
+
+        /**
+         * CANDIDATE
+         */
+        createCandidate: {
+            type: CandidateType,
+            args: {
+                name: { type: new GraphQLNonNull(GraphQLString) },
+                address: { type: new GraphQLNonNull(AddressInputType) },
+                contact: { type: new GraphQLNonNull(ContactInputType) },
+            },
+            resolve: createCandidate
         },
 
         /**
