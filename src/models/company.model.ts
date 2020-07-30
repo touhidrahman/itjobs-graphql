@@ -22,7 +22,7 @@ export interface ICompany extends mongoose.Document {
         facebook: string
         linkedin: string
     }
-    registrationDetails?: string
+    registrationDetails?: string // TODO proper schema
     keyPersons?: {
         chairman: string
         managingDirector: string

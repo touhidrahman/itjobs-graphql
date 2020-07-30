@@ -8,7 +8,6 @@ export async function createTeam(
 ): Promise<ITeam | Error> {
     try {
         const teamInput = await createTeamRules.validate(args)
-        console.log('TCL: teamInput', teamInput)
         const team = new Team({ ...teamInput })
         await team.save()
         return (await Team.findById(team._id)) as ITeam

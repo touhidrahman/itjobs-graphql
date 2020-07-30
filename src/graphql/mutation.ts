@@ -18,6 +18,7 @@ import {
     TeamType,
     TokenType,
     UserType,
+    TeamTypeEnumType,
 } from '@local/graphql/types'
 import {
     GraphQLBoolean,
@@ -102,7 +103,7 @@ export const Mutation = new GraphQLObjectType({
         createTeam: {
             type: TeamType,
             args: {
-                type: { type: new GraphQLNonNull(GraphQLString) }, // TODO make enum
+                type: { type: new GraphQLNonNull(TeamTypeEnumType) },
                 name: { type: GraphQLString },
                 description: { type: GraphQLString },
                 url: { type: GraphQLString },

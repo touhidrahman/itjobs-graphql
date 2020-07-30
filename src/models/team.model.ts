@@ -9,7 +9,7 @@ export interface ITeam extends Document {
 }
 
 const TeamSchema = new Schema({
-    type: { type: String, required: true },
+    type: { type: String, enum: ['TEAM', 'PRODUCT'], required: true },
     name: String,
     description: String,
     url: String,
