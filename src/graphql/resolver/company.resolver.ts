@@ -5,10 +5,10 @@ import { validateToken } from '@local/middlewares/validate-token'
 
 export async function createCompany(
     parent: any,
-    args: any,
+    { input }: any,
 ): Promise<ICompany | Error> {
     try {
-        const sanitizedArgs = await createCompanyRules.validate(args)
+        const sanitizedArgs = await createCompanyRules.validate(input)
 
         const company = new Company({ ...sanitizedArgs })
 

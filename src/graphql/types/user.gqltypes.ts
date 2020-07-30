@@ -3,6 +3,7 @@ import {
     GraphQLNonNull,
     GraphQLObjectType,
     GraphQLString,
+    GraphQLInputObjectType,
 } from 'graphql'
 
 export const UserType = new GraphQLObjectType({
@@ -11,6 +12,24 @@ export const UserType = new GraphQLObjectType({
         id: { type: new GraphQLNonNull(GraphQLID) },
         firstName: { type: new GraphQLNonNull(GraphQLString) },
         lastName: { type: new GraphQLNonNull(GraphQLString) },
+        email: { type: new GraphQLNonNull(GraphQLString) },
+        password: { type: new GraphQLNonNull(GraphQLString) },
+    }),
+})
+
+export const SignupType = new GraphQLInputObjectType({
+    name: 'Signup',
+    fields: () => ({
+        firstName: { type: new GraphQLNonNull(GraphQLString) },
+        lastName: { type: new GraphQLNonNull(GraphQLString) },
+        email: { type: new GraphQLNonNull(GraphQLString) },
+        password: { type: new GraphQLNonNull(GraphQLString) },
+    }),
+})
+
+export const LoginType = new GraphQLInputObjectType({
+    name: 'Login',
+    fields: () => ({
         email: { type: new GraphQLNonNull(GraphQLString) },
         password: { type: new GraphQLNonNull(GraphQLString) },
     }),

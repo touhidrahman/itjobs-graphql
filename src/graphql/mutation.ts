@@ -2,6 +2,7 @@ import {
     addTeamToCompany,
     createCandidate,
     createCompany,
+    createJobPost,
     createSkill,
     createTeam,
     deleteCompany,
@@ -9,29 +10,26 @@ import {
     removeTeamFromCompany,
     signup,
     updateSkill,
-    createJobPost,
 } from '@local/graphql/resolver'
 import {
-    AddressInputType,
+    CandidateInputType,
     CandidateType,
+    CompanyInputType,
     CompanyType,
-    ContactInputType,
+    JobInputType,
     JobType,
-    KeyPersonsInputType,
-    MinMaxInputType,
+    LoginType,
+    SignupType,
     SkillInputType,
     SkillType,
+    TeamInputType,
     TeamType,
-    TeamTypeEnumType,
     TokenType,
     UserType,
-    JobInputType,
 } from '@local/graphql/types'
 import {
     GraphQLBoolean,
     GraphQLID,
-    GraphQLInt,
-    GraphQLList,
     GraphQLNonNull,
     GraphQLObjectType,
     GraphQLString,
@@ -43,10 +41,7 @@ export const Mutation = new GraphQLObjectType({
         signup: {
             type: UserType,
             args: {
-                firstName: { type: GraphQLString },
-                lastName: { type: GraphQLString },
-                email: { type: new GraphQLNonNull(GraphQLString) },
-                password: { type: new GraphQLNonNull(GraphQLString) },
+                input: { type: new GraphQLNonNull(SignupType) },
             },
             resolve: signup,
         },
@@ -54,8 +49,7 @@ export const Mutation = new GraphQLObjectType({
         login: {
             type: TokenType,
             args: {
-                email: { type: new GraphQLNonNull(GraphQLString) },
-                password: { type: new GraphQLNonNull(GraphQLString) },
+                input: { type: new GraphQLNonNull(LoginType) },
             },
             resolve: login,
         },
@@ -66,17 +60,7 @@ export const Mutation = new GraphQLObjectType({
         createCompany: {
             type: CompanyType,
             args: {
-                displayName: { type: new GraphQLNonNull(GraphQLString) },
-                legalName: { type: new GraphQLNonNull(GraphQLString) },
-                description: { type: GraphQLString },
-                industry: { type: new GraphQLList(GraphQLString) },
-                address: { type: new GraphQLNonNull(AddressInputType) },
-                contact: { type: new GraphQLNonNull(ContactInputType) },
-                registrationDetails: { type: GraphQLString },
-                keyPersons: {
-                    type: new GraphQLNonNull(KeyPersonsInputType),
-                },
-                hiringManager: { type: new GraphQLList(GraphQLString) },
+                input: { type: new GraphQLNonNull(CompanyInputType) },
             },
             resolve: createCompany,
         },
@@ -113,11 +97,7 @@ export const Mutation = new GraphQLObjectType({
         createTeam: {
             type: TeamType,
             args: {
-                type: { type: new GraphQLNonNull(TeamTypeEnumType) },
-                name: { type: GraphQLString },
-                description: { type: GraphQLString },
-                url: { type: GraphQLString },
-                technology: { type: new GraphQLList(GraphQLString) },
+                input: { type: new GraphQLNonNull(TeamInputType) },
             },
             resolve: createTeam,
         },
@@ -139,9 +119,7 @@ export const Mutation = new GraphQLObjectType({
         createCandidate: {
             type: CandidateType,
             args: {
-                name: { type: new GraphQLNonNull(GraphQLString) },
-                address: { type: new GraphQLNonNull(AddressInputType) },
-                contact: { type: new GraphQLNonNull(ContactInputType) },
+                input: { type: new GraphQLNonNull(CandidateInputType) },
             },
             resolve: createCandidate,
         },

@@ -3,6 +3,8 @@ import {
     ContactType,
     TeamType,
     UserType,
+    AddressInputType,
+    ContactInputType,
 } from '@local/graphql/types'
 import {
     GraphQLID,
@@ -27,6 +29,23 @@ export const CompanyType = new GraphQLObjectType({
         keyPersons: { type: new GraphQLNonNull(KeyPersonsType) },
         hiringManager: { type: new GraphQLList(UserType) },
         teams: { type: new GraphQLList(TeamType) },
+    }),
+})
+
+export const CompanyInputType = new GraphQLInputObjectType({
+    name: 'CompanyInput',
+    fields: () => ({
+        displayName: { type: new GraphQLNonNull(GraphQLString) },
+        legalName: { type: new GraphQLNonNull(GraphQLString) },
+        description: { type: GraphQLString },
+        industry: { type: new GraphQLList(GraphQLString) },
+        address: { type: new GraphQLNonNull(AddressInputType) },
+        contact: { type: new GraphQLNonNull(ContactInputType) },
+        registrationDetails: { type: GraphQLString },
+        keyPersons: {
+            type: new GraphQLNonNull(KeyPersonsInputType),
+        },
+        hiringManager: { type: new GraphQLList(GraphQLString) },
     }),
 })
 

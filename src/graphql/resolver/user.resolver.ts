@@ -11,15 +11,18 @@ type LoginResponse = {
     user: IUser | null
 }
 
-export async function signup(parent: any, args: any): Promise<IUser | Error> {
+export async function signup(
+    parent: any,
+    { input }: any,
+): Promise<IUser | Error> {
     try {
-        await signupRules.validate(args)
+        await signupRules.validate(input)
 
         const user = new User({
-            firstName: args.firstName,
-            lastName: args.lastName,
-            password: args.password,
-            email: args.email,
+            firstName: input.firstName,
+            lastName: input.lastName,
+            password: input.password,
+            email: input.email,
         })
 
         return await user.save()
@@ -30,12 +33,12 @@ export async function signup(parent: any, args: any): Promise<IUser | Error> {
 
 export async function login(
     parent: any,
-    args: any,
+    { input }: any,
 ): Promise<LoginResponse | Error> {
     try {
-        await loginRules.validate(args)
+        await loginRules.validate(input)
 
-        const userEmail = args.email
+        const userEmail = input.email
         const user = await User.findOne({ email: userEmail })
 
         if (!user) {

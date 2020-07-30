@@ -4,10 +4,10 @@ import { GraphQLError } from 'graphql'
 
 export async function createTeam(
     parent: any,
-    args: any,
+    { input }: any,
 ): Promise<ITeam | Error> {
     try {
-        const teamInput = await createTeamRules.validate(args)
+        const teamInput = await createTeamRules.validate(input)
         const team = new Team({ ...teamInput })
         await team.save()
         return (await Team.findById(team._id)) as ITeam
