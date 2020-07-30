@@ -1,4 +1,4 @@
-import Skill, { ISkill } from '@local/models/skill.model'
+import { Skill,  ISkill } from '@local/models/skill.model'
 import { createSkillRules } from '@local/rules/skill.rules'
 import { GraphQLError } from 'graphql'
 

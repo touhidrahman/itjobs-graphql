@@ -17,4 +17,4 @@ const SkillSchema = new Schema(
     },
 )
 
-export default model<ISkill>('Skill', SkillSchema)
+export const Skill = model<ISkill>('Skill', SkillSchema)

@@ -16,4 +16,4 @@ const TeamSchema = new Schema({
     technology: [String],
 })
 
-export default model<ITeam>('Team', TeamSchema)
+export const Team = model<ITeam>('Team', TeamSchema)

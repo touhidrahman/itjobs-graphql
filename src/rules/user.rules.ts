@@ -1,7 +1,7 @@
 import * as yup from 'yup'
 import * as bcrypt from 'bcryptjs'
 
-import User from '@local/models/user.model'
+import {User} from '@local/models/user.model'
 
 export const signupRules = yup.object().shape({
     firstName: yup.string().trim().required(),
@@ -18,7 +18,7 @@ export const signupRules = yup.object().shape({
                 const user = await User.findOne({ email: emailInput })
                 return user ? false : true
             },
-        ), // TODO check email
+        ),
     password: yup
         .string()
         .trim()

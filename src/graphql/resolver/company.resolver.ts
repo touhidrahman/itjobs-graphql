@@ -1,4 +1,4 @@
-import Company, { ICompany } from '@local/models/company.model'
+import { Company,  ICompany } from '@local/models/company.model'
 import { createCompanyRules } from '@local/rules/company.rules'
 import { GraphQLError } from 'graphql'
 

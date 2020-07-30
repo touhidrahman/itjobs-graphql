@@ -1,4 +1,4 @@
-import User, { IUser } from '@local/models/user.model'
+import { User,  IUser } from '@local/models/user.model'
 import { signupRules, loginRules } from '@local/rules/user.rules'
 import { GraphQLError } from 'graphql'
 import config from '@local/config'
