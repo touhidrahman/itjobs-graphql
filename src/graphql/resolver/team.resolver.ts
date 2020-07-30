@@ -1,4 +1,4 @@
-import {Team,  ITeam } from '@local/models/team.model'
+import { Team, ITeam } from '@local/models/team.model'
 import { createTeamRules } from '@local/rules/team.rules'
 import { GraphQLError } from 'graphql'
 

@@ -1,9 +1,9 @@
-import { User,  IUser } from '@local/models/user.model'
-import { signupRules, loginRules } from '@local/rules/user.rules'
-import { GraphQLError } from 'graphql'
 import config from '@local/config'
-import * as jsonwebtoken from 'jsonwebtoken'
 import { validateToken } from '@local/middlewares/validate-token'
+import { IUser, User } from '@local/models/user.model'
+import { loginRules, signupRules } from '@local/rules/user.rules'
+import { GraphQLError } from 'graphql'
+import * as jsonwebtoken from 'jsonwebtoken'
 
 type UserForToken = { id: string; name: string; email: string }
 type LoginResponse = {

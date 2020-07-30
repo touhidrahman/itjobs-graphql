@@ -12,7 +12,7 @@ export const TeamType = new GraphQLObjectType({
     name: 'Team',
     fields: () => ({
         id: { type: new GraphQLNonNull(GraphQLID) },
-        type: { type: new GraphQLNonNull(TeamTypeEnumType) }, 
+        type: { type: new GraphQLNonNull(TeamTypeEnumType) },
         name: { type: GraphQLString },
         description: { type: GraphQLString },
         url: { type: GraphQLString },
@@ -34,7 +34,7 @@ export const TeamInputType = new GraphQLInputObjectType({
 export const TeamTypeEnumType = new GraphQLEnumType({
     name: 'TeamTypeEnum',
     values: {
-        TEAM: { value: 'TEAM'},
-        PRODUCT: { value: 'PRODUCT'},
-    }
+        TEAM: { value: 'TEAM' },
+        PRODUCT: { value: 'PRODUCT' },
+    },
 })

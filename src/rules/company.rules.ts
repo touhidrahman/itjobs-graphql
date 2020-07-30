@@ -1,5 +1,5 @@
 import * as yup from 'yup'
-import { addressRules, contactRules } from './common.rules';
+import { addressRules, contactRules } from './common.rules'
 
 export const createCompanyRules = yup.object().shape({
     displayName: yup.string().trim().required(),

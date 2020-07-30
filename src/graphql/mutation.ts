@@ -127,7 +127,7 @@ export const Mutation = new GraphQLObjectType({
                 address: { type: new GraphQLNonNull(AddressInputType) },
                 contact: { type: new GraphQLNonNull(ContactInputType) },
             },
-            resolve: createCandidate
+            resolve: createCandidate,
         },
 
         /**

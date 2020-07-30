@@ -1,4 +1,9 @@
-import { TeamType, UserType, ContactType, AddressType } from '@local/graphql/types'
+import {
+    AddressType,
+    ContactType,
+    TeamType,
+    UserType,
+} from '@local/graphql/types'
 import {
     GraphQLID,
     GraphQLInputObjectType,

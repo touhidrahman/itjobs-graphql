@@ -1,7 +1,5 @@
+import { User } from '@local/models/user.model'
 import * as yup from 'yup'
-import * as bcrypt from 'bcryptjs'
-
-import {User} from '@local/models/user.model'
 
 export const signupRules = yup.object().shape({
     firstName: yup.string().trim().required(),

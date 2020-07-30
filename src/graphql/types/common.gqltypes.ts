@@ -1,4 +1,9 @@
-import { GraphQLInputObjectType, GraphQLNonNull, GraphQLString, GraphQLObjectType } from "graphql";
+import {
+    GraphQLInputObjectType,
+    GraphQLNonNull,
+    GraphQLObjectType,
+    GraphQLString,
+} from 'graphql'
 
 export const AddressInputType = new GraphQLInputObjectType({
     name: 'AddressInput',
