@@ -2,10 +2,19 @@ import * as mongoose from 'mongoose'
 import { ICompany } from './company.model'
 import { ITeam } from './team.model'
 
+export enum JobLevel {
+    Intern = 'Intern',
+    Junior = 'Junior',
+    Professional = 'Professional',
+    Senior = 'Senior',
+    Lead = 'Lead',
+    Architect = 'Architect',
+}
+
 export interface IJob extends mongoose.Document {
-    role: string // TODO enum
+    role: string
     title: string
-    level: string // TODO enum
+    level: JobLevel
     locationCity: string
     effort: 'Fulltime' | 'Parttime'
     remote: string // TODO enum minimal, limited, full
@@ -31,15 +40,25 @@ export interface IJob extends mongoose.Document {
     leaveDays: number
     employerReference: string
     gender: 'Male' | 'Female' | 'Any'
-    // TODO valid until
-    // TODO yup
+    validUntill: Date
 }
 
 const JobSchema = new mongoose.Schema(
     {
         role: { type: String, required: true },
         title: String,
-        level: { type: String, required: true },
+        level: {
+            type: String,
+            enum: [
+                'Intern',
+                'Junior',
+                'Professional',
+                'Senior',
+                'Lead',
+                'Architect',
+            ],
+            required: true,
+        },
         locationCity: String,
         effort: {
             type: String,
@@ -69,6 +88,7 @@ const JobSchema = new mongoose.Schema(
         leaveDays: Number,
         employerReference: String,
         gender: { type: String, enum: ['Male', 'Female', 'Any'] },
+        validUntill: Date,
     },
     { timestamps: true },
 )

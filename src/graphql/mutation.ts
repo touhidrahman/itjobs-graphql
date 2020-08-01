@@ -34,6 +34,7 @@ import {
     GraphQLObjectType,
     GraphQLString,
 } from 'graphql'
+import { JobRoleType } from './types/jobrole.gqltypes'
 
 export const Mutation = new GraphQLObjectType({
     name: 'Mutation',
@@ -142,6 +143,17 @@ export const Mutation = new GraphQLObjectType({
                 newName: { type: new GraphQLNonNull(GraphQLString) },
             },
             resolve: updateSkill,
+        },
+
+        /**
+         * JOBROLE
+         */
+        createJobRole: {
+            type: JobRoleType,
+            args: {
+                name: { type: new GraphQLNonNull(GraphQLString) },
+            },
+            resolve: createJobRole,
         },
     },
 })

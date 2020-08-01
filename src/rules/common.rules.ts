@@ -16,3 +16,8 @@ export const contactRules = yup.object().shape({
     facebook: yup.string(),
     linkedin: yup.string(),
 })
+
+export const minMaxRules = yup.object().shape({
+    min: yup.number(),
+    max: yup.number(),
+})
