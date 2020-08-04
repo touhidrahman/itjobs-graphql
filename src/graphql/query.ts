@@ -5,6 +5,7 @@ import {
     getTeams,
     getUser,
     getUsers,
+    getJobRoles,
 } from '@local/graphql/resolver'
 import {
     CompanyType,
@@ -12,6 +13,7 @@ import {
     SkillType,
     TeamType,
     UserType,
+    JobRoleType,
 } from '@local/graphql/types'
 import { GraphQLInt, GraphQLList, GraphQLObjectType } from 'graphql'
 
@@ -65,6 +67,14 @@ export const RootQuery = new GraphQLObjectType({
         jobs: {
             type: new GraphQLList(JobType),
             resolve: getJobs,
+        },
+
+        /**
+         * JOB ROLE
+         */
+        jobRoles: {
+            type: new GraphQLList(JobRoleType),
+            resolve: getJobRoles,
         },
 
         /**
