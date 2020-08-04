@@ -1,6 +1,6 @@
-import {Document, Schema, model} from 'mongoose'
-import { IUser } from './user.model';
-import { IMessenger } from './messenger.model';
+import { Document, Schema, model } from 'mongoose'
+import { IUser } from './user.model'
+import { IMessenger } from './messenger.model'
 
 export interface IConversation extends Document {
     subject: string
@@ -14,13 +14,16 @@ export const ConversationSchema = new Schema(
     {
         subject: String,
         description: String,
-        participants: [{type: Schema.Types.ObjectId, ref: 'Messenger'}],
-        initializeDate: {type: Date, default: Date.now },
-        isArchived: {type: Boolean, default: false}
+        participants: [{ type: Schema.Types.ObjectId, ref: 'Messenger' }],
+        initializeDate: { type: Date, default: Date.now },
+        isArchived: { type: Boolean, default: false },
     },
     {
-        timestamps: true
-    }
+        timestamps: true,
+    },
 )
 
-export const Conversation = model<IConversation>('Conversation', ConversationSchema)
+export const Conversation = model<IConversation>(
+    'Conversation',
+    ConversationSchema,
+)

@@ -1,24 +1,46 @@
-import { createCandidate } from '@local/graphql/resolver/candidate.resolver';
-import { addTeamToCompany, createCompany, deleteCompany, removeTeamFromCompany } from '@local/graphql/resolver/company.resolver';
-import { createJobPost } from '@local/graphql/resolver/job.resolver';
-import { createJobRole, deleteJobRole } from '@local/graphql/resolver/jobrole.resolver';
-import { createSkill, updateSkill } from '@local/graphql/resolver/skill.resolver';
-import { createTeam } from '@local/graphql/resolver/team.resolver';
-import { login, signup } from '@local/graphql/resolver/user.resolver';
-import { CandidateInputType, CandidateType } from '@local/graphql/types/candidate.gqltypes';
-import { CompanyInputType, CompanyType } from '@local/graphql/types/company.gqltypes';
-import { JobInputType, JobType } from '@local/graphql/types/job.gqltypes';
-import { JobRoleType } from '@local/graphql/types/jobrole.gqltypes';
-import { SkillInputType, SkillType } from '@local/graphql/types/skill.gqltypes';
-import { TeamInputType, TeamType } from '@local/graphql/types/team.gqltypes';
-import { LoginType, SignupType, TokenType, UserType } from '@local/graphql/types/user.gqltypes';
+import { createCandidate } from '@local/graphql/resolver/candidate.resolver'
+import {
+    addTeamToCompany,
+    createCompany,
+    deleteCompany,
+    removeTeamFromCompany,
+} from '@local/graphql/resolver/company.resolver'
+import { createJobPost } from '@local/graphql/resolver/job.resolver'
+import {
+    createJobRole,
+    deleteJobRole,
+} from '@local/graphql/resolver/jobrole.resolver'
+import {
+    createSkill,
+    updateSkill,
+} from '@local/graphql/resolver/skill.resolver'
+import { createTeam } from '@local/graphql/resolver/team.resolver'
+import { login, signup } from '@local/graphql/resolver/user.resolver'
+import {
+    CandidateInputType,
+    CandidateType,
+} from '@local/graphql/types/candidate.gqltypes'
+import {
+    CompanyInputType,
+    CompanyType,
+} from '@local/graphql/types/company.gqltypes'
+import { JobInputType, JobType } from '@local/graphql/types/job.gqltypes'
+import { JobRoleType } from '@local/graphql/types/jobrole.gqltypes'
+import { SkillInputType, SkillType } from '@local/graphql/types/skill.gqltypes'
+import { TeamInputType, TeamType } from '@local/graphql/types/team.gqltypes'
+import {
+    LoginType,
+    SignupType,
+    TokenType,
+    UserType,
+} from '@local/graphql/types/user.gqltypes'
 import {
     GraphQLBoolean,
     GraphQLID,
     GraphQLNonNull,
     GraphQLObjectType,
-    GraphQLString
-} from 'graphql';
+    GraphQLString,
+} from 'graphql'
 
 export const Mutation = new GraphQLObjectType({
     name: 'Mutation',
@@ -143,10 +165,10 @@ export const Mutation = new GraphQLObjectType({
         deleteJobRole: {
             type: JobRoleType,
             args: {
-                id: { type: new GraphQLNonNull(GraphQLString) }
+                id: { type: new GraphQLNonNull(GraphQLString) },
             },
-            resolve: deleteJobRole
-        }
+            resolve: deleteJobRole,
+        },
     },
 })
 

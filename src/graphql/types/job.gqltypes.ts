@@ -11,7 +11,7 @@ import {
 } from 'graphql'
 import { CompanyType } from './company.gqltypes'
 import { TeamType } from './team.gqltypes'
-import { MinMaxType, GenderEnumType, MinMaxInputType } from './common.gqltypes';
+import { MinMaxType, GenderEnumType, MinMaxInputType } from './common.gqltypes'
 
 export const JobType = new GraphQLObjectType({
     name: 'Job',

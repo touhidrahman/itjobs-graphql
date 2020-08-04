@@ -6,7 +6,7 @@ export interface IJobRole extends mongoose.Document {
 
 const JobRoleSchema = new mongoose.Schema(
     {
-        name: {type: String, index: true, unique: true, required: true }
+        name: { type: String, index: true, unique: true, required: true },
     },
     { timestamps: false },
 )

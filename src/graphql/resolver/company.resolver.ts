@@ -1,5 +1,5 @@
 import { Company, ICompany } from '@local/models/company.model'
-import { Messenger  } from '@local/models/messenger.model'
+import { Messenger } from '@local/models/messenger.model'
 import { createCompanyRules } from '@local/rules/company.rules'
 import { GraphQLError } from 'graphql'
 import { validateToken } from '@local/middlewares/validate-token'
@@ -20,7 +20,7 @@ export async function createCompany(
         // create associated messenger profile
         const messenger = new Messenger({
             linkedCompany: res._id,
-            type: 'Company'
+            type: 'Company',
         })
         await messenger.save()
 

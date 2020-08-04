@@ -17,7 +17,6 @@ export interface ICandidate extends mongoose.Document {
         facebook: string
         linkedin: string
     }
-
 }
 
 const CandidateSchema = new mongoose.Schema(
@@ -38,9 +37,13 @@ const CandidateSchema = new mongoose.Schema(
             facebook: String,
             linkedin: String,
         },
-    }, {
-        timestamps: true
-    }
+    },
+    {
+        timestamps: true,
+    },
 )
 
-export const Candidate = mongoose.model<ICandidate>('Candidate', CandidateSchema)
+export const Candidate = mongoose.model<ICandidate>(
+    'Candidate',
+    CandidateSchema,
+)

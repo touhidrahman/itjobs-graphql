@@ -1,10 +1,16 @@
 import {
     GraphQLID,
-    GraphQLInputObjectType, GraphQLNonNull,
+    GraphQLInputObjectType,
+    GraphQLNonNull,
     GraphQLObjectType,
-    GraphQLString
-} from 'graphql';
-import { AddressInputType, AddressType, ContactInputType, ContactType } from './common.gqltypes';
+    GraphQLString,
+} from 'graphql'
+import {
+    AddressInputType,
+    AddressType,
+    ContactInputType,
+    ContactType,
+} from './common.gqltypes'
 
 export const CandidateType = new GraphQLObjectType({
     name: 'Candidate',
@@ -14,7 +20,7 @@ export const CandidateType = new GraphQLObjectType({
         address: { type: new GraphQLNonNull(AddressType) },
         contact: { type: new GraphQLNonNull(ContactType) },
     }),
-});
+})
 
 export const CandidateInputType = new GraphQLInputObjectType({
     name: 'CandidateInput',
@@ -23,4 +29,4 @@ export const CandidateInputType = new GraphQLInputObjectType({
         address: { type: new GraphQLNonNull(AddressInputType) },
         contact: { type: new GraphQLNonNull(ContactInputType) },
     }),
-});
+})
