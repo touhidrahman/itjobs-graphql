@@ -3,7 +3,12 @@ import config from '@local/config'
 
 type ValidateResponse = {
     id: string
-    userName: string
+    user: {
+        id: string
+        name: string
+        email: string
+        role: 'User' | 'HiringManager' | 'Admin' | 'SuperAdmin'
+    }
     iat: number
     exp: number
 }

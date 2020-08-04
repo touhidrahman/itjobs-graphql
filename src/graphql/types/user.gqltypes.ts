@@ -14,6 +14,7 @@ export const UserType = new GraphQLObjectType({
         lastName: { type: new GraphQLNonNull(GraphQLString) },
         email: { type: new GraphQLNonNull(GraphQLString) },
         password: { type: new GraphQLNonNull(GraphQLString) },
+        role: { type: new GraphQLNonNull(GraphQLString) },
     }),
 })
 
@@ -24,6 +25,7 @@ export const SignupType = new GraphQLInputObjectType({
         lastName: { type: new GraphQLNonNull(GraphQLString) },
         email: { type: new GraphQLNonNull(GraphQLString) },
         password: { type: new GraphQLNonNull(GraphQLString) },
+        role: { type: new GraphQLNonNull(GraphQLString) },
     }),
 })
 

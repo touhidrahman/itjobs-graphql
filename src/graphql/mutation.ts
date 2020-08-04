@@ -9,6 +9,7 @@ import { createJobPost } from '@local/graphql/resolver/job.resolver'
 import {
     createJobRole,
     deleteJobRole,
+    updateJobRole,
 } from '@local/graphql/resolver/jobrole.resolver'
 import {
     createSkill,
@@ -45,6 +46,9 @@ import {
 export const Mutation = new GraphQLObjectType({
     name: 'Mutation',
     fields: {
+        /**
+         * PUBLIC
+         */
         signup: {
             type: UserType,
             args: {
@@ -160,6 +164,15 @@ export const Mutation = new GraphQLObjectType({
                 name: { type: new GraphQLNonNull(GraphQLString) },
             },
             resolve: createJobRole,
+        },
+
+        updateJobRole: {
+            type: JobRoleType,
+            args: {
+                id: { type: new GraphQLNonNull(GraphQLID) },
+                name: { type: new GraphQLNonNull(GraphQLString) },
+            },
+            resolve: updateJobRole,
         },
 
         deleteJobRole: {

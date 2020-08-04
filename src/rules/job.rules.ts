@@ -11,7 +11,7 @@ export const createJobRules = yup.object().shape({
             'jobRoleNotFound',
             'This job role does not exist in database',
             async (roleInput) => {
-                const count = await JobRole.count({ name: roleInput })
+                const count = await JobRole.countDocuments({ name: roleInput })
                 return count > 0
             },
         ),

@@ -5,7 +5,12 @@ import { loginRules, signupRules } from '@local/rules/user.rules'
 import { GraphQLError } from 'graphql'
 import * as jsonwebtoken from 'jsonwebtoken'
 
-type UserForToken = { id: string; name: string; email: string }
+type UserForToken = {
+    id: string
+    name: string
+    email: string
+    role: 'User' | 'HiringManager' | 'Admin' | 'SuperAdmin'
+}
 type LoginResponse = {
     token: string
     user: IUser | null
@@ -18,12 +23,7 @@ export async function signup(
     try {
         await signupRules.validate(input)
 
-        const user = new User({
-            firstName: input.firstName,
-            lastName: input.lastName,
-            password: input.password,
-            email: input.email,
-        })
+        const user = new User({ ...input })
 
         return await user.save()
     } catch (error) {
@@ -49,6 +49,7 @@ export async function login(
             name: `${user.firstName} ${user.lastName}`,
             id: user.id,
             email: user.email,
+            role: user.role,
         }
 
         const token = jsonwebtoken.sign(

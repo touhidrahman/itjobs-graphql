@@ -26,6 +26,7 @@ export const signupRules = yup.object().shape({
             /[a-zA-Z0-9@!#%]/,
             'Password can only contain Latin letters, numbers and/or [@, !, #, %].',
         ),
+    role: yup.string().oneOf(['User', 'HiringManager', 'Admin', 'SuperAdmin']),
 })
 
 export const loginRules = yup.object().shape({

@@ -2,12 +2,15 @@ import { Company, ICompany } from '@local/models/company.model'
 import { Messenger } from '@local/models/messenger.model'
 import { createCompanyRules } from '@local/rules/company.rules'
 import { GraphQLError } from 'graphql'
-import { validateToken } from '@local/middlewares/validate-token'
+import { allowAdmin, allowHiringManager, allowUser } from './common.resolver'
 
 export async function createCompany(
     parent: any,
     { input }: any,
+    { headers }: any,
 ): Promise<ICompany | Error> {
+    allowHiringManager(headers.authorization)
+
     try {
         const sanitizedArgs = await createCompanyRules.validate(input)
 
@@ -35,8 +38,7 @@ export async function getCompanies(
     args: any,
     { headers }: any,
 ): Promise<ICompany[] | Error> {
-    const { authorization } = headers
-    const user = validateToken(authorization)
+    allowUser(headers.authorization)
 
     return await Company.find().populate('hiringManager teams')
 }
@@ -44,7 +46,10 @@ export async function getCompanies(
 export async function deleteCompany(
     parent: any,
     args: any,
+    { headers }: any,
 ): Promise<boolean | Error> {
+    allowAdmin(headers.authorization)
+
     const { id } = args
     try {
         const res = await Company.findByIdAndDelete(id)
@@ -61,7 +66,9 @@ export async function deleteCompany(
 export async function addTeamToCompany(
     parent: any,
     args: any,
+    { headers }: any,
 ): Promise<ICompany | Error> {
+    allowUser(headers.authorization)
     try {
         const company = await Company.findById(args.companyId)
         if (company && !company.teams.includes(args.teamId)) {
@@ -79,7 +86,10 @@ export async function addTeamToCompany(
 export async function removeTeamFromCompany(
     parent: any,
     args: any,
+    { headers }: any,
 ): Promise<ICompany | Error> {
+    allowUser(headers.authorization)
+
     try {
         const company = await Company.findById(args.companyId)
         if (company && company.teams.includes(args.teamId)) {
