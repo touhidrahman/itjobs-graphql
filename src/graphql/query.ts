@@ -1,21 +1,16 @@
-import {
-    getCompanies,
-    getJobs,
-    getSkills,
-    getTeams,
-    getUser,
-    getUsers,
-    getJobRoles,
-} from '@local/graphql/resolver'
-import {
-    CompanyType,
-    JobType,
-    SkillType,
-    TeamType,
-    UserType,
-    JobRoleType,
-} from '@local/graphql/types'
-import { GraphQLInt, GraphQLList, GraphQLObjectType } from 'graphql'
+import { getCompanies } from '@local/graphql/resolver/company.resolver';
+import { getJobs } from '@local/graphql/resolver/job.resolver';
+import { getJobRoles } from '@local/graphql/resolver/jobrole.resolver';
+import { getSkills } from '@local/graphql/resolver/skill.resolver';
+import { getTeams } from '@local/graphql/resolver/team.resolver';
+import { getUser, getUsers } from '@local/graphql/resolver/user.resolver';
+import { CompanyType } from '@local/graphql/types/company.gqltypes';
+import { JobType } from '@local/graphql/types/job.gqltypes';
+import { JobRoleType } from '@local/graphql/types/jobrole.gqltypes';
+import { SkillType } from '@local/graphql/types/skill.gqltypes';
+import { TeamType } from '@local/graphql/types/team.gqltypes';
+import { UserType } from '@local/graphql/types/user.gqltypes';
+import { GraphQLInt, GraphQLList, GraphQLObjectType } from 'graphql';
 
 export const RootQuery = new GraphQLObjectType({
     name: 'RootQueryType',

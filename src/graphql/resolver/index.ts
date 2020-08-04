@@ -1,7 +1,0 @@
-export * from './candidate.resolver'
-export * from './company.resolver'
-export * from './skill.resolver'
-export * from './team.resolver'
-export * from './user.resolver'
-export * from './job.resolver'
-export * from './jobrole.resolver'

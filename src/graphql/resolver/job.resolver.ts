@@ -1,4 +1,4 @@
-import { Job, IJob } from '@local/models'
+import { Job, IJob } from '@local/models/job.model'
 import { GraphQLError } from 'graphql'
 import { createJobRules } from '@local/rules/job.rules'
 

@@ -1,12 +1,4 @@
 import {
-    AddressType,
-    ContactType,
-    TeamType,
-    UserType,
-    AddressInputType,
-    ContactInputType,
-} from '@local/graphql/types'
-import {
     GraphQLID,
     GraphQLInputObjectType,
     GraphQLList,
@@ -14,6 +6,9 @@ import {
     GraphQLObjectType,
     GraphQLString,
 } from 'graphql'
+import { AddressType, ContactType, AddressInputType, ContactInputType } from './common.gqltypes';
+import { UserType } from './user.gqltypes';
+import { TeamType } from './team.gqltypes';
 
 export const CompanyType = new GraphQLObjectType({
     name: 'Company',
