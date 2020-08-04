@@ -16,3 +16,23 @@ export async function createJobRole(
         throw new GraphQLError(error)
     }
 }
+
+export async function getJobRoles(
+    parent: any,
+    args: any
+): Promise<IJobRole[]> {
+    return await JobRole.find({})
+}
+
+export async function deleteJobRole(
+    parent: any, args: any
+): Promise<IJobRole | null> {
+    try {        
+        const toDelete = await JobRole.findById(args.id)
+        await JobRole.findByIdAndDelete(args.id)
+    
+        return toDelete
+    } catch (error) {
+        throw new GraphQLError(error)
+    }
+}

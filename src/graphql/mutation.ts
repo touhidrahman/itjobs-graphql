@@ -10,6 +10,8 @@ import {
     removeTeamFromCompany,
     signup,
     updateSkill,
+    createJobRole,
+    deleteJobRole,
 } from '@local/graphql/resolver'
 import {
     CandidateInputType,
@@ -155,5 +157,13 @@ export const Mutation = new GraphQLObjectType({
             },
             resolve: createJobRole,
         },
+
+        deleteJobRole: {
+            type: JobRoleType,
+            args: {
+                id: { type: new GraphQLNonNull(GraphQLString) }
+            },
+            resolve: deleteJobRole
+        }
     },
 })
