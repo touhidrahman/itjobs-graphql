@@ -1,4 +1,5 @@
 import { Company, ICompany } from '@local/models/company.model'
+import { Messenger  } from '@local/models/messenger.model'
 import { createCompanyRules } from '@local/rules/company.rules'
 import { GraphQLError } from 'graphql'
 import { validateToken } from '@local/middlewares/validate-token'
@@ -16,6 +17,12 @@ export async function createCompany(
         const resPopulated = await Company.findById(res._id).populate(
             'hiringManager teams',
         )
+        // create associated messenger profile
+        const messenger = new Messenger({
+            linkedCompany: res._id,
+            type: 'Company'
+        })
+        await messenger.save()
 
         return resPopulated!
     } catch (error) {

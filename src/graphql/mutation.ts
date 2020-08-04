@@ -167,3 +167,5 @@ export const Mutation = new GraphQLObjectType({
         }
     },
 })
+
+// TODO: with creation of company and user, create an associated messenger profile under the hood
