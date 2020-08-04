@@ -1,9 +1,10 @@
 import {
+    GraphQLEnumType,
     GraphQLID,
+    GraphQLInputObjectType,
     GraphQLNonNull,
     GraphQLObjectType,
     GraphQLString,
-    GraphQLInputObjectType,
 } from 'graphql'
 
 export const UserType = new GraphQLObjectType({
@@ -14,7 +15,7 @@ export const UserType = new GraphQLObjectType({
         lastName: { type: new GraphQLNonNull(GraphQLString) },
         email: { type: new GraphQLNonNull(GraphQLString) },
         password: { type: new GraphQLNonNull(GraphQLString) },
-        role: { type: new GraphQLNonNull(GraphQLString) },
+        role: { type: new GraphQLNonNull(UserRoleEnumType) },
     }),
 })
 
@@ -25,7 +26,7 @@ export const SignupType = new GraphQLInputObjectType({
         lastName: { type: new GraphQLNonNull(GraphQLString) },
         email: { type: new GraphQLNonNull(GraphQLString) },
         password: { type: new GraphQLNonNull(GraphQLString) },
-        role: { type: new GraphQLNonNull(GraphQLString) },
+        role: { type: new GraphQLNonNull(UserRoleEnumType) },
     }),
 })
 
@@ -43,4 +44,14 @@ export const TokenType = new GraphQLObjectType({
         token: { type: GraphQLString },
         user: { type: UserType },
     }),
+})
+
+export const UserRoleEnumType = new GraphQLEnumType({
+    name: 'UserRoleEnum',
+    values: {
+        User: { value: 'User' },
+        HiringManager: { value: 'HiringManager' },
+        Admin: { value: 'Admin' },
+        SuperAdmin: { value: 'SuperAdmin' },
+    },
 })

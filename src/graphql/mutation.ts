@@ -16,7 +16,7 @@ import {
     updateSkill,
 } from '@local/graphql/resolver/skill.resolver'
 import { createTeam } from '@local/graphql/resolver/team.resolver'
-import { login, signup } from '@local/graphql/resolver/user.resolver'
+import { login, signup, logout } from '@local/graphql/resolver/user.resolver'
 import {
     CandidateInputType,
     CandidateType,
@@ -47,7 +47,7 @@ export const Mutation = new GraphQLObjectType({
     name: 'Mutation',
     fields: {
         /**
-         * PUBLIC
+         * USER
          */
         signup: {
             type: UserType,
@@ -63,6 +63,11 @@ export const Mutation = new GraphQLObjectType({
                 input: { type: new GraphQLNonNull(LoginType) },
             },
             resolve: login,
+        },
+
+        logout: {
+            type: TokenType,
+            resolve: logout,
         },
 
         /**

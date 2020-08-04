@@ -4,6 +4,8 @@ import { IUser, User } from '@local/models/user.model'
 import { loginRules, signupRules } from '@local/rules/user.rules'
 import { GraphQLError } from 'graphql'
 import * as jsonwebtoken from 'jsonwebtoken'
+import { Messenger } from '@local/models/messenger.model'
+import { allowUser } from './common.resolver'
 
 type UserForToken = {
     id: string
@@ -24,8 +26,16 @@ export async function signup(
         await signupRules.validate(input)
 
         const user = new User({ ...input })
+        const savedUser = await user.save()
 
-        return await user.save()
+        // create associated messenger profile
+        const messenger = new Messenger({
+            linkedUser: savedUser._id,
+            type: 'User',
+        })
+        await messenger.save()
+
+        return savedUser
     } catch (error) {
         return new GraphQLError(error)
     }
@@ -62,6 +72,16 @@ export async function login(
     } catch (error) {
         return new GraphQLError(error)
     }
+}
+
+export async function logout(
+    parent: any,
+    args: any,
+    { headers }: any,
+): Promise<LoginResponse | Error> {
+    allowUser(headers.authorization)
+
+    return { token: '', user: null }
 }
 
 export async function getUsers(
