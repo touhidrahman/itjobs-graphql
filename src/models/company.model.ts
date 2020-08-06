@@ -32,6 +32,8 @@ export interface ICompany extends mongoose.Document {
     }
     hiringManager?: IUser[]
     teams: ITeam[]
+    isVerified: boolean
+    // TODO premium
 }
 
 const CompanySchema = new mongoose.Schema(
@@ -65,6 +67,7 @@ const CompanySchema = new mongoose.Schema(
         },
         hiringManager: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
         teams: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Team' }],
+        isVerified: { type: Boolean, default: false },
     },
     { timestamps: true },
 )

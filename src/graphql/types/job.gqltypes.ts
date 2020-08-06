@@ -9,9 +9,11 @@ import {
     GraphQLObjectType,
     GraphQLString,
 } from 'graphql'
+import { GraphQLDate } from 'graphql-iso-date'
+import { CandidateType } from './candidate.gqltypes'
+import { GenderEnumType, MinMaxInputType, MinMaxType } from './common.gqltypes'
 import { CompanyType } from './company.gqltypes'
 import { TeamType } from './team.gqltypes'
-import { MinMaxType, GenderEnumType, MinMaxInputType } from './common.gqltypes'
 
 export const JobType = new GraphQLObjectType({
     name: 'Job',
@@ -36,6 +38,10 @@ export const JobType = new GraphQLObjectType({
         leaveDays: { type: GraphQLInt },
         employerReference: { type: GraphQLString },
         gender: { type: GenderEnumType },
+        hiringStages: { type: new GraphQLList(GraphQLString) },
+        validUntill: { type: new GraphQLNonNull(GraphQLDate) },
+        isSponsored: { type: GraphQLBoolean },
+        invitedCandidates: { type: GraphQLList(CandidateType) },
     }),
 })
 
@@ -61,6 +67,10 @@ export const JobInputType = new GraphQLInputObjectType({
         leaveDays: { type: GraphQLInt },
         employerReference: { type: GraphQLString },
         gender: { type: GenderEnumType },
+        hiringStages: { type: new GraphQLList(GraphQLString) },
+        validUntill: { type: new GraphQLNonNull(GraphQLDate) },
+        isSponsored: { type: GraphQLBoolean },
+        invitedCandidates: { type: GraphQLList(CandidateType) },
     }),
 })
 

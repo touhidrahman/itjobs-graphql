@@ -1,5 +1,6 @@
 import * as mongoose from 'mongoose'
 import { ICompany } from './company.model'
+import { ICandidate } from './candidate.model'
 import { ITeam } from './team.model'
 
 export enum JobLevel {
@@ -40,7 +41,10 @@ export interface IJob extends mongoose.Document {
     leaveDays: number
     employerReference: string
     gender: 'Male' | 'Female' | 'Any'
+    hiringStages: string[]
     validUntill: Date
+    isSponsored: boolean
+    invitedCandidates: ICandidate[]
 }
 
 const JobSchema = new mongoose.Schema(
@@ -88,7 +92,12 @@ const JobSchema = new mongoose.Schema(
         leaveDays: Number,
         employerReference: String,
         gender: { type: String, enum: ['Male', 'Female', 'Any'] },
+        hiringStages: [{ type: String, required: true, default: ['Applied'] }],
         validUntill: Date,
+        isSponsored: { type: Boolean, default: false },
+        invitedCandidates: [
+            { type: mongoose.Schema.Types.ObjectId, ref: 'Candidate' },
+        ],
     },
     { timestamps: true },
 )

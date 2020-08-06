@@ -1,6 +1,5 @@
-import { Document, Schema, model } from 'mongoose'
+import { Document, model, Schema } from 'mongoose'
 import { IConversation } from './conversation.model'
-import { IUser } from './user.model'
 import { IMessenger } from './messenger.model'
 
 export interface IMessage extends Document {

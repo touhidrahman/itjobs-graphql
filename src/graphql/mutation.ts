@@ -16,7 +16,7 @@ import {
     updateSkill,
 } from '@local/graphql/resolver/skill.resolver'
 import { createTeam } from '@local/graphql/resolver/team.resolver'
-import { login, signup, logout } from '@local/graphql/resolver/user.resolver'
+import { login, logout, signup } from '@local/graphql/resolver/user.resolver'
 import {
     CandidateInputType,
     CandidateType,
@@ -42,6 +42,11 @@ import {
     GraphQLObjectType,
     GraphQLString,
 } from 'graphql'
+import { createJobApplication } from './resolver/job-application.resolver'
+import {
+    ApplyToJobInputType,
+    JobApplicationType,
+} from './types/job-application.gqltypes'
 
 export const Mutation = new GraphQLObjectType({
     name: 'Mutation',
@@ -186,6 +191,17 @@ export const Mutation = new GraphQLObjectType({
                 id: { type: new GraphQLNonNull(GraphQLString) },
             },
             resolve: deleteJobRole,
+        },
+
+        /**
+         * JOB APPLICATION
+         */
+        applyToJob: {
+            type: JobApplicationType,
+            args: {
+                input: { type: new GraphQLNonNull(ApplyToJobInputType) },
+            },
+            resolve: createJobApplication,
         },
     },
 })

@@ -5,6 +5,7 @@ import {
     GraphQLNonNull,
     GraphQLObjectType,
     GraphQLString,
+    GraphQLBoolean,
 } from 'graphql'
 import {
     AddressType,
@@ -29,6 +30,7 @@ export const CompanyType = new GraphQLObjectType({
         keyPersons: { type: new GraphQLNonNull(KeyPersonsType) },
         hiringManager: { type: new GraphQLList(UserType) },
         teams: { type: new GraphQLList(TeamType) },
+        isVerified: { type: GraphQLBoolean },
     }),
 })
 
@@ -45,7 +47,7 @@ export const CompanyInputType = new GraphQLInputObjectType({
         keyPersons: {
             type: new GraphQLNonNull(KeyPersonsInputType),
         },
-        hiringManager: { type: new GraphQLList(GraphQLString) },
+        hiringManager: { type: new GraphQLList(GraphQLID) },
     }),
 })
 
