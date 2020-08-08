@@ -41,7 +41,7 @@ export const JobType = new GraphQLObjectType({
         hiringStages: { type: new GraphQLList(GraphQLString) },
         validUntill: { type: new GraphQLNonNull(GraphQLDate) },
         isSponsored: { type: GraphQLBoolean },
-        invitedCandidates: { type: GraphQLList(CandidateType) },
+        invitedCandidates: { type: new GraphQLList(CandidateType) },
     }),
 })
 
@@ -70,7 +70,7 @@ export const JobInputType = new GraphQLInputObjectType({
         hiringStages: { type: new GraphQLList(GraphQLString) },
         validUntill: { type: new GraphQLNonNull(GraphQLDate) },
         isSponsored: { type: GraphQLBoolean },
-        invitedCandidates: { type: GraphQLList(CandidateType) },
+        invitedCandidates: { type: new GraphQLList(CandidateType) },
     }),
 })
 
