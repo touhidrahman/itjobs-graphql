@@ -11,13 +11,14 @@ export interface IJobApplication extends Document {
     history: {
         stage: string
         dateEntered: Date
-        dateLeave: Date
+        dateLeave?: Date
     }[]
     declineInfo: {
         isDeclined: boolean
         reason: string
         afterStage: string
         dateDeclined: Date
+        isDeclinedByCandidate: boolean
     }
     isPremium: boolean
     isInvited: boolean
@@ -42,6 +43,7 @@ export const JobApplicationSchema = new Schema(
             reason: String,
             afterStage: String,
             dateDeclined: Date,
+            isDeclinedByCandidate: Boolean,
         },
         isPremium: Boolean,
         isInvited: Boolean,

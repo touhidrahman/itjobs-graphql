@@ -1,23 +1,21 @@
 import {
     GraphQLBoolean,
     GraphQLID,
+    GraphQLInputObjectType,
     GraphQLInt,
     GraphQLList,
     GraphQLNonNull,
     GraphQLObjectType,
     GraphQLString,
-    GraphQLInputObjectType,
 } from 'graphql'
 import { GraphQLDate } from 'graphql-iso-date'
-import { CandidateType } from './candidate.gqltypes'
-import { JobType } from './job.gqltypes'
 
 export const JobApplicationType = new GraphQLObjectType({
     name: 'JobApplication',
     fields: () => ({
         id: { type: new GraphQLNonNull(GraphQLID) },
-        job: { type: JobType },
-        candidate: { type: CandidateType },
+        job: { type: GraphQLID },
+        candidate: { type: GraphQLID },
         matchScore: { type: GraphQLInt },
         nextAllowedStages: { type: new GraphQLList(GraphQLString) },
         currentStage: { type: GraphQLString },
@@ -62,5 +60,6 @@ export const JobApplicationDeclineInfoType = new GraphQLObjectType({
         reason: { type: GraphQLString },
         afterStage: { type: GraphQLString },
         dateDeclined: { type: GraphQLDate },
+        isDeclinedByCandidate: { type: GraphQLBoolean },
     }),
 })

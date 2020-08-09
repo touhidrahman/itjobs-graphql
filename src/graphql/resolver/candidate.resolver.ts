@@ -4,11 +4,10 @@ import { createCandidateRules } from '@local/rules/candidate.rules'
 
 export async function createCandidate(
     parent: any,
-    args: any,
+    { input }: any,
 ): Promise<ICandidate | null> {
     try {
-        const candidateInput = await createCandidateRules.validate(args)
-        console.log('TCL: in :', candidateInput) // ! remove
+        const candidateInput = await createCandidateRules.validate(input)
         const candidate = new Candidate({ ...candidateInput })
         const saved = await candidate.save()
 

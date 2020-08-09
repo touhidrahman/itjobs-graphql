@@ -18,6 +18,10 @@ export async function createJobPost(
     }
 }
 
+export async function getJob(parent: any, args: any): Promise<IJob | null> {
+    return await Job.findById(args.id).populate('company teamOrProduct')
+}
+
 export async function getJobs(parent: any, args: any): Promise<IJob[] | Error> {
     return (await Job.find().populate('company teamOrProduct')) as IJob[]
 }
