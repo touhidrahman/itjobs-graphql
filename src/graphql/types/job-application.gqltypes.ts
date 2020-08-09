@@ -14,7 +14,7 @@ export const JobApplicationType = new GraphQLObjectType({
     name: 'JobApplication',
     fields: () => ({
         id: { type: new GraphQLNonNull(GraphQLID) },
-        job: { type: GraphQLID },
+        job: { type: new GraphQLNonNull(GraphQLID) },
         candidate: { type: GraphQLID },
         matchScore: { type: GraphQLInt },
         currentStage: { type: GraphQLString },

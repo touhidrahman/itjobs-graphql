@@ -11,6 +11,8 @@ import { SkillType } from '@local/graphql/types/skill.gqltypes'
 import { TeamType } from '@local/graphql/types/team.gqltypes'
 import { UserType } from '@local/graphql/types/user.gqltypes'
 import { GraphQLInt, GraphQLList, GraphQLObjectType } from 'graphql'
+import { getJobApplications } from './resolver/job-application.resolver'
+import { JobApplicationType } from './types/job-application.gqltypes'
 
 export const RootQuery = new GraphQLObjectType({
     name: 'RootQueryType',
@@ -82,6 +84,18 @@ export const RootQuery = new GraphQLObjectType({
                 size: { type: GraphQLInt },
             },
             resolve: getSkills,
+        },
+
+        /**
+         * JOB APPLICATION
+         */
+        getJobApplications: {
+            type: new GraphQLList(JobApplicationType),
+            args: {
+                page: { type: GraphQLInt },
+                size: { type: GraphQLInt },
+            },
+            resolve: getJobApplications,
         },
     },
 })

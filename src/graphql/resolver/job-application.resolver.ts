@@ -1,11 +1,10 @@
-import { Job, IJob } from '@local/models/job.model'
-import { GraphQLError } from 'graphql'
 import {
-    JobApplication,
     IJobApplication,
+    JobApplication,
 } from '@local/models/job-application.model'
-import { allowUser, allowHiringManager } from './common.resolver'
-import { date } from 'yup'
+import { Job } from '@local/models/job.model'
+import { GraphQLError } from 'graphql'
+import { allowHiringManager, allowUser } from './common.resolver'
 
 export async function createJobApplication(
     parent: any,
@@ -85,6 +84,25 @@ export async function changeJobApplicationStatus(
 
         const res = await jobApplication.save()
         return res
+    } catch (error) {
+        throw new GraphQLError(error)
+    }
+}
+
+export async function getJobApplications(
+    parent: any,
+    { page, size }: any,
+    { headers }: any,
+): Promise<IJobApplication[] | null> {
+    allowHiringManager(headers.authorization)
+
+    const myPage = page < 1 ? 0 : page - 1
+
+    try {
+        const jobApplications = await JobApplication.find({})
+            .skip(myPage * size)
+            .limit(size)
+        return jobApplications
     } catch (error) {
         throw new GraphQLError(error)
     }
