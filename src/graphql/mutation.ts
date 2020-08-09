@@ -1,4 +1,7 @@
-import { createCandidate } from '@local/graphql/resolver/candidate.resolver'
+import {
+    createCandidate,
+    addEducationToCandidateProfile,
+} from '@local/graphql/resolver/candidate.resolver'
 import {
     addTeamToCompany,
     createCompany,
@@ -20,6 +23,7 @@ import { login, logout, signup } from '@local/graphql/resolver/user.resolver'
 import {
     CandidateInputType,
     CandidateType,
+    CandidateEducationInputType,
 } from '@local/graphql/types/candidate.gqltypes'
 import {
     CompanyInputType,
@@ -41,12 +45,13 @@ import {
     GraphQLNonNull,
     GraphQLObjectType,
     GraphQLString,
+    GraphQLList,
 } from 'graphql'
 import {
     changeJobApplicationStatus,
     createJobApplication,
-    withdrawJobApplication,
     declineJobApplication,
+    withdrawJobApplication,
 } from './resolver/job-application.resolver'
 import {
     ApplyToJobInputType,
@@ -150,6 +155,15 @@ export const Mutation = new GraphQLObjectType({
                 input: { type: new GraphQLNonNull(CandidateInputType) },
             },
             resolve: createCandidate,
+        },
+
+        addEducationToCandidateProfile: {
+            type: CandidateType,
+            args: {
+                id: { type: new GraphQLNonNull(GraphQLID) },
+                input: { type: CandidateEducationInputType },
+            },
+            resolve: addEducationToCandidateProfile,
         },
 
         /**

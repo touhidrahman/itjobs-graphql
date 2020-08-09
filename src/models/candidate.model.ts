@@ -1,4 +1,5 @@
 import * as mongoose from 'mongoose'
+import { string } from 'yup'
 
 export interface ICandidate extends mongoose.Document {
     name: string
@@ -11,12 +12,30 @@ export interface ICandidate extends mongoose.Document {
     }
     contact: {
         phone: string
-        fax: string
         email: string
-        website: string
-        facebook: string
-        linkedin: string
     }
+    educations: {
+        level: string // ssc, hsc, undergraduate (3 yrs / 4 yrs), graduate 91 yr, 1.5 yr, 2 yr), diploma, phd
+        isStem: boolean
+        isCoumputerScience: boolean
+        institution: string
+        fromDate: Date
+        toDate: Date
+        isCompleted: boolean
+        programName: string
+        cgpa: number
+        description: string
+        courses: {
+            name: string
+            cgpa: number
+            project: {
+                title: string
+                description: string
+                mediaUrl: string
+                projectUrl: string
+            }
+        }[]
+    }[]
 }
 
 const CandidateSchema = new mongoose.Schema(
@@ -31,12 +50,32 @@ const CandidateSchema = new mongoose.Schema(
         },
         contact: {
             phone: String,
-            fax: String,
             email: String,
-            website: String,
-            facebook: String,
-            linkedin: String,
         },
+        educations: [
+            {
+                level: String,
+                isStem: Boolean,
+                isCoumputerScience: Boolean,
+                institution: String,
+                fromDate: Date,
+                toDate: Date,
+                isCompleted: Boolean,
+                programName: String,
+                cgpa: Number,
+                description: String,
+                courses: {
+                    name: String,
+                    cgpa: Number,
+                    project: {
+                        title: String,
+                        description: String,
+                        mediaUrl: String,
+                        projectUrl: String,
+                    },
+                },
+            },
+        ],
     },
     {
         timestamps: true,
