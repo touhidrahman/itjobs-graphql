@@ -61,3 +61,12 @@ export const JobApplicationDeclineInfoType = new GraphQLObjectType({
         isDeclinedByCandidate: { type: GraphQLBoolean },
     }),
 })
+
+export const JobApplicationDeclineInputType = new GraphQLInputObjectType({
+    name: 'JobApplicationDeclineInput',
+    fields: () => ({
+        jobApplicationId: { type: new GraphQLNonNull(GraphQLID) },
+        reason: { type: GraphQLString },
+        isDeclinedByCandidate: { type: GraphQLBoolean },
+    }),
+})
