@@ -4,12 +4,16 @@ import {
     JobApplication,
     IJobApplication,
 } from '@local/models/job-application.model'
+import { allowUser, allowHiringManager } from './common.resolver'
+import { date } from 'yup'
 
 export async function createJobApplication(
     parent: any,
     { input }: any,
     { headers }: any,
 ): Promise<IJobApplication | null> {
+    allowUser(headers.authorization)
+
     try {
         const jobApplicationInput = input // TODO yup
         const jobApplication = new JobApplication({
@@ -21,7 +25,6 @@ export async function createJobApplication(
         if (job) {
             const hiringStages = job.hiringStages
             jobApplication.currentStage = hiringStages[0]
-            jobApplication.nextAllowedStages = hiringStages.slice(1)
             // TODO check is invited
             // TODO make history
             jobApplication.history = [
@@ -35,6 +38,52 @@ export async function createJobApplication(
 
         const res = await JobApplication.findById(saved._id)
         console.log('TCL: res', res)
+        return res
+    } catch (error) {
+        throw new GraphQLError(error)
+    }
+}
+
+export async function withdrawJobApplication(
+    parent: any,
+    { id }: any,
+    { headers }: any,
+): Promise<IJobApplication | null> {
+    allowUser(headers.authorization)
+
+    try {
+        const jobApplication = await JobApplication.findById(id)
+        await JobApplication.findByIdAndDelete(id)
+
+        return jobApplication
+    } catch (error) {
+        throw new GraphQLError(error)
+    }
+}
+
+export async function changeJobApplicationStatus(
+    parent: any,
+    { input }: any,
+    { headers }: any,
+): Promise<IJobApplication | null> {
+    allowHiringManager(headers.authorization)
+
+    const { jobApplicationId: id, toStage: stage } = input
+
+    try {
+        const jobApplication = await JobApplication.findById(id)
+        if (!jobApplication) {
+            return null
+        }
+        jobApplication.currentStage = stage
+        // make history
+        const history = {
+            stage,
+            dateEntered: new Date(),
+        }
+        jobApplication.history.push(history)
+
+        const res = await jobApplication.save()
         return res
     } catch (error) {
         throw new GraphQLError(error)

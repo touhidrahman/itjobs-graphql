@@ -42,10 +42,15 @@ import {
     GraphQLObjectType,
     GraphQLString,
 } from 'graphql'
-import { createJobApplication } from './resolver/job-application.resolver'
+import {
+    createJobApplication,
+    withdrawJobApplication,
+    changeJobApplicationStatus,
+} from './resolver/job-application.resolver'
 import {
     ApplyToJobInputType,
     JobApplicationType,
+    ChangeHiringStageInputType,
 } from './types/job-application.gqltypes'
 
 export const Mutation = new GraphQLObjectType({
@@ -202,6 +207,24 @@ export const Mutation = new GraphQLObjectType({
                 input: { type: new GraphQLNonNull(ApplyToJobInputType) },
             },
             resolve: createJobApplication,
+        },
+
+        withdrawJobApplication: {
+            type: JobApplicationType,
+            args: {
+                id: { type: new GraphQLNonNull(GraphQLID) },
+            },
+            resolve: withdrawJobApplication,
+        },
+
+        changeJobApplicationStatus: {
+            type: JobApplicationType,
+            args: {
+                input: {
+                    type: new GraphQLNonNull(ChangeHiringStageInputType),
+                },
+            },
+            resolve: changeJobApplicationStatus,
         },
     },
 })

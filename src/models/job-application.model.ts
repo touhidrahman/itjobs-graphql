@@ -6,7 +6,6 @@ export interface IJobApplication extends Document {
     job: IJob
     candidate: ICandidate
     matchScore: number
-    nextAllowedStages: string[]
     currentStage: string
     history: {
         stage: string
@@ -29,7 +28,6 @@ export const JobApplicationSchema = new Schema(
         job: { type: Schema.Types.ObjectId, ref: 'Job' },
         candidate: { type: Schema.Types.ObjectId, ref: 'Candidate' },
         matchScore: Number,
-        nextAllowedStages: [String],
         currentStage: { type: String, required: true },
         history: [
             {

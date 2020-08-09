@@ -17,7 +17,6 @@ export const JobApplicationType = new GraphQLObjectType({
         job: { type: GraphQLID },
         candidate: { type: GraphQLID },
         matchScore: { type: GraphQLInt },
-        nextAllowedStages: { type: new GraphQLList(GraphQLString) },
         currentStage: { type: GraphQLString },
         history: { type: new GraphQLList(JobApplicationHistoryType) },
         declineInfo: { type: JobApplicationDeclineInfoType },
@@ -38,8 +37,7 @@ export const ApplyToJobInputType = new GraphQLInputObjectType({
 export const ChangeHiringStageInputType = new GraphQLInputObjectType({
     name: 'ChangeHiringStageInput',
     fields: () => ({
-        jobId: { type: new GraphQLNonNull(GraphQLID) },
-        candidateId: { type: new GraphQLNonNull(GraphQLID) },
+        jobApplicationId: { type: new GraphQLNonNull(GraphQLID) },
         toStage: { type: new GraphQLNonNull(GraphQLString) },
     }),
 })
